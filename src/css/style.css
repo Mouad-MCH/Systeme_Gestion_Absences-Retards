@@ -1,0 +1,58 @@
+@import url('https://fonts.googleapis.com/css2?family=Playwrite+US+Trad+Guides&display=swap');
+
+:root {
+    /* Color */
+    --gradiant_color: linear-gradient(to top, #185a9d,#43cea2);
+    --star-color: #F5C857;
+    --title-color: #002455;
+    --text-color: #000;
+    --p-color: #ccc;
+    --wite-color: #ffff;
+
+    --box1-color: #ABE0F0;
+    --box2-color: #7132CA;
+    --box3-color: #08CB00;
+
+    /* Font Size */
+
+    --p-fontSize: 12px;
+    --title-size: 25px;
+    --link-size: 14px;
+    --line-h: 1.5;
+
+    /* ***************** */
+
+    /* Font Weigth */
+
+    --title-wheight: 900;
+    --link-weight:500;
+}
+
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: "Playwrite USA Traditional Guides", sans-serif;
+}
+
+body { background-color: #f5f5f5; }
+
+a { text-decoration: none; }
+
+h1 { color: var(--title-color); }
+h2 { color: var(--title-color); }
+
+
+p { color: #777; line-height: var(--line-h); }
+
+/*---------------------- *\
+ * Side bar 
+\* --------------------- */
+
+
+
+/*---------------------- *\
+ *  Main Content
+\* --------------------- */
+

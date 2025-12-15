@@ -1,0 +1,1498 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ENAA - Gestion des Absences & Retards</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --bg-primary: #0a0e27;
+            --bg-secondary: #141b3a;
+            --bg-card: #1a2341;
+            --bg-hover: #222c4f;
+            --text-primary: #ffffff;
+            --text-secondary: #a0aec0;
+            --accent: #6366f1;
+            --accent-hover: #4f46e5;
+            --accent-light: rgba(99, 102, 241, 0.1);
+            --success: #10b981;
+            --success-light: rgba(16, 185, 129, 0.1);
+            --warning: #f59e0b;
+            --warning-light: rgba(245, 158, 11, 0.1);
+            --danger: #ef4444;
+            --danger-light: rgba(239, 68, 68, 0.1);
+            --border: #2d3a5f;
+            --shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
+            --shadow-lg: 0 10px 25px rgba(0, 0, 0, 0.5);
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        @keyframes slideIn {
+            from { transform: translateX(-20px); opacity: 0; }
+            to { transform: translateX(0); opacity: 1; }
+        }
+
+        @keyframes pulse {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+        }
+
+        body {
+            font-family: 'Inter', 'Segoe UI', system-ui, sans-serif;
+            background: linear-gradient(135deg, var(--bg-primary) 0%, #0f1629 100%);
+            color: var(--text-primary);
+            line-height: 1.6;
+            min-height: 100vh;
+        }
+
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 20px;
+            animation: fadeIn 0.5s ease;
+        }
+
+        /* Sidebar Navigation */
+        .sidebar {
+            position: fixed;
+            left: 0;
+            top: 0;
+            height: 100vh;
+            width: 280px;
+            background: var(--bg-secondary);
+            border-right: 1px solid var(--border);
+            padding: 30px 0;
+            z-index: 100;
+            box-shadow: var(--shadow-lg);
+            transition: transform 0.3s ease;
+        }
+
+        .sidebar-header {
+            padding: 0 30px 30px;
+            border-bottom: 1px solid var(--border);
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            font-size: 24px;
+            font-weight: 700;
+            background: linear-gradient(135deg, var(--accent) 0%, #8b5cf6 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .logo-icon {
+            width: 40px;
+            height: 40px;
+            background: linear-gradient(135deg, var(--accent) 0%, #8b5cf6 100%);
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 20px;
+        }
+
+        .nav {
+            padding: 30px 0;
+        }
+
+        .nav-item {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            padding: 14px 30px;
+            color: var(--text-secondary);
+            text-decoration: none;
+            transition: all 0.3s ease;
+            cursor: pointer;
+            position: relative;
+            font-weight: 500;
+        }
+
+        .nav-item::before {
+            content: '';
+            position: absolute;
+            left: 0;
+            top: 50%;
+            transform: translateY(-50%);
+            width: 4px;
+            height: 0;
+            background: linear-gradient(180deg, var(--accent) 0%, #8b5cf6 100%);
+            border-radius: 0 4px 4px 0;
+            transition: height 0.3s ease;
+        }
+
+        .nav-item:hover {
+            background: var(--bg-hover);
+            color: var(--text-primary);
+        }
+
+        .nav-item.active {
+            background: var(--accent-light);
+            color: var(--accent);
+        }
+
+        .nav-item.active::before {
+            height: 100%;
+        }
+
+        .nav-icon {
+            font-size: 20px;
+            width: 24px;
+            text-align: center;
+        }
+
+        /* Main Content */
+        .main-content {
+            margin-left: 280px;
+            min-height: 100vh;
+        }
+
+        .header {
+            background: var(--bg-secondary);
+            border-bottom: 1px solid var(--border);
+            padding: 24px 40px;
+            margin-bottom: 30px;
+            backdrop-filter: blur(10px);
+            position: sticky;
+            top: 0;
+            z-index: 50;
+            box-shadow: var(--shadow);
+        }
+
+        .header-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .page-title {
+            font-size: 28px;
+            font-weight: 700;
+            background: linear-gradient(135deg, var(--text-primary) 0%, var(--text-secondary) 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .header-actions {
+            display: flex;
+            gap: 12px;
+            align-items: center;
+        }
+
+        .search-box {
+            position: relative;
+        }
+
+        .search-input {
+            padding: 10px 16px 10px 40px;
+            background: var(--bg-primary);
+            border: 1px solid var(--border);
+            border-radius: 10px;
+            color: var(--text-primary);
+            width: 300px;
+            transition: all 0.3s ease;
+        }
+
+        .search-input:focus {
+            outline: none;
+            border-color: var(--accent);
+            box-shadow: 0 0 0 3px var(--accent-light);
+        }
+
+        .search-icon {
+            position: absolute;
+            left: 12px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: var(--text-secondary);
+        }
+
+        /* Cards */
+        .card {
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: 16px;
+            padding: 28px;
+            margin-bottom: 24px;
+            box-shadow: var(--shadow);
+            transition: all 0.3s ease;
+            animation: fadeIn 0.5s ease;
+        }
+
+        .card:hover {
+            box-shadow: var(--shadow-lg);
+            transform: translateY(-2px);
+        }
+
+        .card-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 24px;
+            padding-bottom: 16px;
+            border-bottom: 1px solid var(--border);
+        }
+
+        .card-title {
+            font-size: 20px;
+            font-weight: 600;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        /* Buttons */
+        .btn {
+            padding: 12px 24px;
+            border-radius: 10px;
+            border: none;
+            cursor: pointer;
+            font-size: 14px;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .btn::before {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 0;
+            height: 0;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.2);
+            transform: translate(-50%, -50%);
+            transition: width 0.6s, height 0.6s;
+        }
+
+        .btn:hover::before {
+            width: 300px;
+            height: 300px;
+        }
+
+        .btn-primary {
+            background: linear-gradient(135deg, var(--accent) 0%, #8b5cf6 100%);
+            color: white;
+            box-shadow: 0 4px 12px rgba(99, 102, 241, 0.4);
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(99, 102, 241, 0.6);
+        }
+
+        .btn-success {
+            background: linear-gradient(135deg, var(--success) 0%, #059669 100%);
+            color: white;
+            box-shadow: 0 4px 12px rgba(16, 185, 129, 0.4);
+        }
+
+        .btn-warning {
+            background: linear-gradient(135deg, var(--warning) 0%, #d97706 100%);
+            color: white;
+            box-shadow: 0 4px 12px rgba(245, 158, 11, 0.4);
+        }
+
+        .btn-danger {
+            background: linear-gradient(135deg, var(--danger) 0%, #dc2626 100%);
+            color: white;
+            box-shadow: 0 4px 12px rgba(239, 68, 68, 0.4);
+        }
+
+        .btn-secondary {
+            background: var(--bg-secondary);
+            color: var(--text-secondary);
+            border: 1px solid var(--border);
+        }
+
+        .btn-secondary:hover {
+            background: var(--bg-hover);
+            border-color: var(--accent);
+            color: var(--text-primary);
+        }
+
+        /* Forms */
+        .form-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 20px;
+            margin-bottom: 24px;
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        .form-label {
+            display: block;
+            margin-bottom: 8px;
+            color: var(--text-secondary);
+            font-size: 14px;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .form-input, .form-select {
+            width: 100%;
+            padding: 12px 16px;
+            background: var(--bg-primary);
+            border: 1px solid var(--border);
+            border-radius: 10px;
+            color: var(--text-primary);
+            font-size: 14px;
+            transition: all 0.3s ease;
+        }
+
+        .form-input:focus, .form-select:focus {
+            outline: none;
+            border-color: var(--accent);
+            box-shadow: 0 0 0 3px var(--accent-light);
+        }
+
+        /* Table */
+        .table-container {
+            overflow-x: auto;
+            border-radius: 10px;
+            border: 1px solid var(--border);
+        }
+
+        .table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        .table th {
+            background: var(--bg-primary);
+            padding: 16px;
+            text-align: left;
+            font-weight: 600;
+            color: var(--text-secondary);
+            text-transform: uppercase;
+            font-size: 12px;
+            letter-spacing: 0.5px;
+            border-bottom: 2px solid var(--border);
+        }
+
+        .table td {
+            padding: 16px;
+            border-bottom: 1px solid var(--border);
+            animation: slideIn 0.3s ease;
+        }
+
+        .table tr {
+            transition: all 0.3s ease;
+        }
+
+        .table tbody tr:hover {
+            background: var(--bg-hover);
+        }
+
+        /* Stats Cards */
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 24px;
+            margin-bottom: 30px;
+        }
+
+        .stat-card {
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: 16px;
+            padding: 28px;
+            position: relative;
+            overflow: hidden;
+            transition: all 0.3s ease;
+            cursor: pointer;
+        }
+
+        .stat-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 4px;
+            background: linear-gradient(90deg, var(--accent) 0%, #8b5cf6 100%);
+        }
+
+        .stat-card:hover {
+            transform: translateY(-5px);
+            box-shadow: var(--shadow-lg);
+        }
+
+        .stat-icon {
+            width: 50px;
+            height: 50px;
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 24px;
+            margin-bottom: 16px;
+        }
+
+        .stat-value {
+            font-size: 42px;
+            font-weight: 700;
+            margin: 12px 0;
+            background: linear-gradient(135deg, var(--accent) 0%, #8b5cf6 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .stat-label {
+            color: var(--text-secondary);
+            font-size: 14px;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .stat-trend {
+            margin-top: 12px;
+            font-size: 12px;
+            color: var(--success);
+            display: flex;
+            align-items: center;
+            gap: 4px;
+        }
+
+        /* Badge */
+        .badge {
+            padding: 6px 14px;
+            border-radius: 20px;
+            font-size: 12px;
+            font-weight: 600;
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .badge-success {
+            background: var(--success-light);
+            color: var(--success);
+            border: 1px solid var(--success);
+        }
+
+        .badge-warning {
+            background: var(--warning-light);
+            color: var(--warning);
+            border: 1px solid var(--warning);
+        }
+
+        .badge-danger {
+            background: var(--danger-light);
+            color: var(--danger);
+            border: 1px solid var(--danger);
+        }
+
+        .badge-info {
+            background: var(--accent-light);
+            color: var(--accent);
+            border: 1px solid var(--accent);
+        }
+
+        /* Presence Grid */
+        .presence-grid {
+            display: grid;
+            gap: 16px;
+        }
+
+        .presence-item {
+            background: var(--bg-primary);
+            padding: 20px;
+            border-radius: 12px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border: 1px solid var(--border);
+            transition: all 0.3s ease;
+            animation: slideIn 0.3s ease;
+        }
+
+        .presence-item:hover {
+            background: var(--bg-hover);
+            border-color: var(--accent);
+        }
+
+        .presence-info {
+            flex: 1;
+            display: flex;
+            align-items: center;
+            gap: 16px;
+        }
+
+        .presence-avatar {
+            width: 48px;
+            height: 48px;
+            border-radius: 12px;
+            background: linear-gradient(135deg, var(--accent) 0%, #8b5cf6 100%);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 700;
+            font-size: 18px;
+        }
+
+        .presence-details {
+            flex: 1;
+        }
+
+        .presence-name {
+            font-weight: 600;
+            font-size: 16px;
+            margin-bottom: 4px;
+        }
+
+        .presence-group {
+            color: var(--text-secondary);
+            font-size: 13px;
+        }
+
+        .presence-actions {
+            display: flex;
+            gap: 12px;
+        }
+
+        .radio-group {
+            display: flex;
+            gap: 12px;
+            background: var(--bg-secondary);
+            padding: 6px;
+            border-radius: 10px;
+        }
+
+        .radio-option {
+            padding: 8px 16px;
+            border-radius: 6px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            font-size: 13px;
+            font-weight: 600;
+        }
+
+        .radio-option input {
+            display: none;
+        }
+
+        .radio-option:has(input:checked) {
+            background: var(--accent);
+            color: white;
+        }
+
+        .radio-option.present:has(input:checked) {
+            background: var(--success);
+        }
+
+        .radio-option.absent:has(input:checked) {
+            background: var(--danger);
+        }
+
+        .radio-option.retard:has(input:checked) {
+            background: var(--warning);
+        }
+
+        /* Delay Form */
+        .delay-form {
+            margin-top: 16px;
+            padding: 20px;
+            background: var(--bg-secondary);
+            border-radius: 12px;
+            border-left: 4px solid var(--warning);
+            display: none;
+            animation: slideIn 0.3s ease;
+        }
+
+        .delay-form.active {
+            display: block;
+        }
+
+        /* Timeline */
+        .timeline-item {
+            background: var(--bg-primary);
+            padding: 24px;
+            border-radius: 12px;
+            margin-bottom: 16px;
+            border: 1px solid var(--border);
+            transition: all 0.3s ease;
+            position: relative;
+            padding-left: 60px;
+        }
+
+        .timeline-item::before {
+            content: '📅';
+            position: absolute;
+            left: 20px;
+            top: 24px;
+            font-size: 24px;
+        }
+
+        .timeline-item:hover {
+            background: var(--bg-hover);
+            border-color: var(--accent);
+        }
+
+        .timeline-date {
+            font-weight: 600;
+            font-size: 18px;
+            margin-bottom: 12px;
+            color: var(--text-primary);
+        }
+
+        .timeline-stats {
+            display: flex;
+            gap: 24px;
+            margin-bottom: 16px;
+        }
+
+        .timeline-stat {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-size: 14px;
+            color: var(--text-secondary);
+        }
+
+        /* Progress Bar */
+        .progress-bar {
+            width: 100%;
+            height: 8px;
+            background: var(--bg-primary);
+            border-radius: 10px;
+            overflow: hidden;
+            margin-top: 12px;
+        }
+
+        .progress-fill {
+            height: 100%;
+            background: linear-gradient(90deg, var(--accent) 0%, #8b5cf6 100%);
+            border-radius: 10px;
+            transition: width 0.5s ease;
+        }
+
+        /* Mobile Menu Toggle */
+        .menu-toggle {
+            display: none;
+            position: fixed;
+            top: 20px;
+            left: 20px;
+            z-index: 200;
+            background: var(--bg-secondary);
+            border: 1px solid var(--border);
+            padding: 12px;
+            border-radius: 10px;
+            cursor: pointer;
+            box-shadow: var(--shadow);
+        }
+
+        .page {
+            display: none;
+        }
+
+        .page.active {
+            display: block;
+        }
+
+        /* Responsive */
+        @media (max-width: 1024px) {
+            .sidebar {
+                transform: translateX(-100%);
+            }
+
+            .sidebar.active {
+                transform: translateX(0);
+            }
+
+            .main-content {
+                margin-left: 0;
+            }
+
+            .menu-toggle {
+                display: block;
+            }
+
+            .search-input {
+                width: 200px;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .header-content {
+                flex-direction: column;
+                gap: 16px;
+            }
+
+            .stats-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .presence-item {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 16px;
+            }
+
+            .radio-group {
+                width: 100%;
+                justify-content: space-between;
+            }
+
+            .search-input {
+                width: 100%;
+            }
+
+            .page-title {
+                font-size: 22px;
+            }
+        }
+
+        /* Empty State */
+        .empty-state {
+            text-align: center;
+            padding: 60px 20px;
+            color: var(--text-secondary);
+        }
+
+        .empty-icon {
+            font-size: 64px;
+            margin-bottom: 16px;
+            opacity: 0.5;
+        }
+    </style>
+</head>
+<body>
+    <!-- Mobile Menu Toggle -->
+    <div class="menu-toggle" onclick="toggleSidebar()">
+        <span style="font-size: 24px;">☰</span>
+    </div>
+
+    <!-- Sidebar -->
+    <div class="sidebar" id="sidebar">
+        <div class="sidebar-header">
+            <div class="logo">
+                <div class="logo-icon">📚</div>
+                <span>ENAA</span>
+            </div>
+        </div>
+        <nav class="nav">
+            <a class="nav-item active" onclick="showPage('apprenants')">
+                <span class="nav-icon">👥</span>
+                <span>Apprenants</span>
+            </a>
+            <a class="nav-item" onclick="showPage('presence')">
+                <span class="nav-icon">✅</span>
+                <span>Présence</span>
+            </a>
+            <a class="nav-item" onclick="showPage('historique')">
+                <span class="nav-icon">📅</span>
+                <span>Historique</span>
+            </a>
+            <a class="nav-item" onclick="showPage('statistiques')">
+                <span class="nav-icon">📊</span>
+                <span>Statistiques</span>
+            </a>
+        </nav>
+    </div>
+
+    <!-- Main Content -->
+    <div class="main-content">
+        <!-- Header -->
+        <div class="header">
+            <div class="header-content">
+                <h1 class="page-title" id="pageTitle">Gestion des Apprenants</h1>
+                <div class="header-actions">
+                    <div class="search-box">
+                        <span class="search-icon">🔍</span>
+                        <input type="text" class="search-input" placeholder="Rechercher...">
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="container">
+            <!-- Page: Apprenants -->
+            <div id="apprenants" class="page active">
+                <div class="stats-grid">
+                    <div class="stat-card">
+                        <div class="stat-icon" style="background: var(--success-light); color: var(--success);">👥</div>
+                        <div class="stat-label">Total Apprenants</div>
+                        <div class="stat-value">48</div>
+                        <div class="stat-trend">↑ +3 ce mois</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-icon" style="background: var(--accent-light); color: var(--accent);">📚</div>
+                        <div class="stat-label">Groupes Actifs</div>
+                        <div class="stat-value">3</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-icon" style="background: var(--warning-light); color: var(--warning);">⚠️</div>
+                        <div class="stat-label">Nécessite Attention</div>
+                        <div class="stat-value">5</div>
+                        <div class="stat-trend" style="color: var(--warning);">↑ Absences fréquentes</div>
+                    </div>
+                </div>
+
+                <div class="card">
+                    <div class="card-header">
+                        <h2 class="card-title">
+                            <span>👥</span>
+                            Liste des Apprenants
+                        </h2>
+                        <button class="btn btn-primary" onclick="toggleForm()">
+                            <span>➕</span>
+                            Ajouter un apprenant
+                        </button>
+                    </div>
+
+                    <div id="addForm" style="display: none; margin-bottom: 24px; padding: 24px; background: var(--bg-primary); border-radius: 12px;">
+                        <h3 style="margin-bottom: 20px; color: var(--accent);">Nouvel Apprenant</h3>
+                        <div class="form-grid">
+                            <div class="form-group">
+                                <label class="form-label">Nom</label>
+                                <input type="text" class="form-input" placeholder="Ex: Alami">
+                            </div>
+                            <div class="form-group">
+                                <label class="form-label">Prénom</label>
+                                <input type="text" class="form-input" placeholder="Ex: Hassan">
+                            </div>
+                            <div class="form-group">
+                                <label class="form-label">Groupe</label>
+                                <select class="form-select">
+                                    <option>Groupe A</option>
+                                    <option>Groupe B</option>
+                                    <option>Groupe C</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div style="display: flex; gap: 12px;">
+                            <button class="btn btn-success">
+                                <span>💾</span>
+                                Enregistrer
+                            </button>
+                            <button class="btn btn-secondary" onclick="toggleForm()">Annuler</button>
+                        </div>
+                    </div>
+
+                    <div class="table-container">
+                        <table class="table">
+                            <thead>
+                                <tr>
+                                    <th>Apprenant</th>
+                                    <th>Groupe</th>
+                                    <th>Taux Présence</th>
+                                    <th>Actions</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>
+                                        <div style="display: flex; align-items: center; gap: 12px;">
+                                            <div style="width: 40px; height: 40px; border-radius: 10px; background: linear-gradient(135deg, #6366f1 0%, #8b5cf6 100%); display: flex; align-items: center; justify-content: center; font-weight: 700;">HA</div>
+                                            <div>
+                                                <div style="font-weight: 600;">Hassan Alami</div>
+                                                <div style="font-size: 12px; color: var(--text-secondary);">ID: #002</div>
+                                            </div>
+                                        </div>
+                                    </td>
+                                    <td><span class="badge badge-success">Groupe A</span></td>
+                                    <td>
+                                        <div style="display: flex; align-items: center; gap: 12px;">
+                                            <span style="font-weight: 600; color: var(--warning);">78%</span>
+                                            <div class="progress-bar" style="width: 100px;">
+                                                <div class="progress-fill" style="width: 78%; background: var(--warning);"></div>
+                                            </div>
+                                        </div>
+                                    </td>
+                                    <td>
+                                        <button class="btn btn-warning" style="padding: 8px 14px; font-size: 12px;">✏️ Modifier</button>
+                                        <button class="btn btn-danger" style="padding: 8px 14px; font-size: 12px;">🗑️ Supprimer</button>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        <div style="display: flex; align-items: center; gap: 12px;">
+                                            <div style="width: 40px; height: 40px; border-radius: 10px; background: linear-gradient(135deg, #f59e0b 0%, #d97706 100%); display: flex; align-items: center; justify-content: center; font-weight: 700;">MC</div>
+                                            <div>
+                                                <div style="font-weight: 600;">Mohamed Chakir</div>
+                                                <div style="font-size: 12px; color: var(--text-secondary);">ID: #003</div>
+                                            </div>
+                                        </div>
+                                    </td>
+                                    <td><span class="badge badge-warning">Groupe B</span></td>
+                                    <td>
+                                        <div style="display: flex; align-items: center; gap: 12px;">
+                                            <span style="font-weight: 600; color: var(--danger);">65%</span>
+                                            <div class="progress-bar" style="width: 100px;">
+                                                <div class="progress-fill" style="width: 65%; background: var(--danger);"></div>
+                                            </div>
+                                        </div>
+                                    </td>
+                                    <td>
+                                        <button class="btn btn-warning" style="padding: 8px 14px; font-size: 12px;">✏️ Modifier</button>
+                                        <button class="btn btn-danger" style="padding: 8px 14px; font-size: 12px;">🗑️ Supprimer</button>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Page: Présence -->
+            <div id="presence" class="page">
+                <div class="card">
+                    <div class="card-header">
+                        <h2 class="card-title">
+                            <span>✅</span>
+                            Prise de Présence Quotidienne
+                        </h2>
+                        <button class="btn btn-primary">
+                            <span>💾</span>
+                            Enregistrer la présence
+                        </button>
+                    </div>
+
+                    <div class="form-group" style="max-width: 400px;">
+                        <label class="form-label">Sélectionner la date</label>
+                        <input type="date" class="form-input">
+                    </div>
+
+                    <div class="presence-grid">
+                        <div class="presence-item">
+                            <div class="presence-info">
+                                <div class="presence-avatar">HA</div>
+                                <div class="presence-details">
+                                    <div class="presence-name">Hassan Alami</div>
+                                    <div class="presence-group">Groupe A • ID: #001</div>
+                                </div>
+                            </div>
+                            <div class="presence-actions">
+                                <div class="radio-group">
+                                    <label class="radio-option present">
+                                        <input type="radio" name="presence1" value="present" checked>
+                                        <span>✓ Présent</span>
+                                    </label>
+                                    <label class="radio-option absent">
+                                        <input type="radio" name="presence1" value="absent">
+                                        <span>✗ Absent</span>
+                                    </label>
+                                    <label class="radio-option retard">
+                                        <input type="radio" name="presence1" value="retard" onclick="toggleDelay(1)">
+                                        <span>⏰ Retard</span>
+                                    </label>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="presence-item">
+                            <div class="presence-info">
+                                <div class="presence-avatar" style="background: linear-gradient(135deg, #10b981 0%, #059669 100%);">FB</div>
+                                <div class="presence-details">
+                                    <div class="presence-name">Fatima Benali</div>
+                                    <div class="presence-group">Groupe A • ID: #002</div>
+                                </div>
+                            </div>
+                            <div class="presence-actions">
+                                <div class="radio-group">
+                                    <label class="radio-option present">
+                                        <input type="radio" name="presence2" value="present">
+                                        <span>✓ Présent</span>
+                                    </label>
+                                    <label class="radio-option absent">
+                                        <input type="radio" name="presence2" value="absent">
+                                        <span>✗ Absent</span>
+                                    </label>
+                                    <label class="radio-option retard">
+                                        <input type="radio" name="presence2" value="retard" onclick="toggleDelay(2)" checked>
+                                        <span>⏰ Retard</span>
+                                    </label>
+                                </div>
+                            </div>
+                        </div>
+                        <div id="delay2" class="delay-form active">
+                            <h4 style="margin-bottom: 16px; color: var(--warning); display: flex; align-items: center; gap: 8px;">
+                                <span>⏰</span>
+                                Informations du retard
+                            </h4>
+                            <div class="form-grid">
+                                <div class="form-group">
+                                    <label class="form-label">Heure d'arrivée</label>
+                                    <input type="time" class="form-input" value="09:15">
+                                </div>
+                                <div class="form-group">
+                                    <label class="form-label">Motif du retard</label>
+                                    <input type="text" class="form-input" value="Problème de transport" placeholder="Ex: Transport, Rendez-vous médical...">
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="presence-item">
+                            <div class="presence-info">
+                                <div class="presence-avatar" style="background: linear-gradient(135deg, #f59e0b 0%, #d97706 100%);">MC</div>
+                                <div class="presence-details">
+                                    <div class="presence-name">Mohamed Chakir</div>
+                                    <div class="presence-group">Groupe B • ID: #003</div>
+                                </div>
+                            </div>
+                            <div class="presence-actions">
+                                <div class="radio-group">
+                                    <label class="radio-option present">
+                                        <input type="radio" name="presence3" value="present">
+                                        <span>✓ Présent</span>
+                                    </label>
+                                    <label class="radio-option absent">
+                                        <input type="radio" name="presence3" value="absent" checked>
+                                        <span>✗ Absent</span>
+                                    </label>
+                                    <label class="radio-option retard">
+                                        <input type="radio" name="presence3" value="retard" onclick="toggleDelay(3)">
+                                        <span>⏰ Retard</span>
+                                    </label>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Page: Historique -->
+            <div id="historique" class="page">
+                <div class="card">
+                    <div class="card-header">
+                        <h2 class="card-title">
+                            <span>📅</span>
+                            Historique des Absences & Retards
+                        </h2>
+                    </div>
+
+                    <div class="timeline-item">
+                        <div class="timeline-date">Lundi 15 Décembre 2025</div>
+                        <div class="timeline-stats">
+                            <span class="timeline-stat">
+                                <span style="color: var(--danger);">❌</span>
+                                <strong>2</strong> absents
+                            </span>
+                            <span class="timeline-stat">
+                                <span style="color: var(--warning);">⏰</span>
+                                <strong>3</strong> retards
+                            </span>
+                            <span class="timeline-stat">
+                                <span style="color: var(--success);">✓</span>
+                                <strong>43</strong> présents
+                            </span>
+                        </div>
+                        <button class="btn btn-primary" style="padding: 8px 16px; font-size: 13px;">
+                            <span>👁️</span>
+                            Voir détails
+                        </button>
+                    </div>
+
+                    <div class="timeline-item">
+                        <div class="timeline-date">Vendredi 13 Décembre 2025</div>
+                        <div class="timeline-stats">
+                            <span class="timeline-stat">
+                                <span style="color: var(--danger);">❌</span>
+                                <strong>1</strong> absent
+                            </span>
+                            <span class="timeline-stat">
+                                <span style="color: var(--warning);">⏰</span>
+                                <strong>2</strong> retards
+                            </span>
+                            <span class="timeline-stat">
+                                <span style="color: var(--success);">✓</span>
+                                <strong>45</strong> présents
+                            </span>
+                        </div>
+                        <button class="btn btn-primary" style="padding: 8px 16px; font-size: 13px;">
+                            <span>👁️</span>
+                            Voir détails
+                        </button>
+                    </div>
+
+                    <div class="timeline-item">
+                        <div class="timeline-date">Jeudi 12 Décembre 2025</div>
+                        <div class="timeline-stats">
+                            <span class="timeline-stat">
+                                <span style="color: var(--danger);">❌</span>
+                                <strong>0</strong> absents
+                            </span>
+                            <span class="timeline-stat">
+                                <span style="color: var(--warning);">⏰</span>
+                                <strong>1</strong> retard
+                            </span>
+                            <span class="timeline-stat">
+                                <span style="color: var(--success);">✓</span>
+                                <strong>47</strong> présents
+                            </span>
+                        </div>
+                        <button class="btn btn-primary" style="padding: 8px 16px; font-size: 13px;">
+                            <span>👁️</span>
+                            Voir détails
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Détails du jour -->
+                <div class="card">
+                    <div class="card-header">
+                        <h2 class="card-title">
+                            <span>📋</span>
+                            Détails - Lundi 15 Décembre 2025
+                        </h2>
+                    </div>
+
+                    <h3 style="margin-bottom: 20px; color: var(--danger); display: flex; align-items: center; gap: 8px;">
+                        <span>❌</span>
+                        Absents (2)
+                    </h3>
+                    <div style="margin-bottom: 32px;">
+                        <div class="presence-item">
+                            <div class="presence-info">
+                                <div class="presence-avatar" style="background: linear-gradient(135deg, #ef4444 0%, #dc2626 100%);">MC</div>
+                                <div class="presence-details">
+                                    <div class="presence-name">Mohamed Chakir</div>
+                                    <div class="presence-group">Groupe B • ID: #003</div>
+                                </div>
+                            </div>
+                            <span class="badge badge-danger">Absent</span>
+                        </div>
+                        <div class="presence-item" style="margin-top: 12px;">
+                            <div class="presence-info">
+                                <div class="presence-avatar" style="background: linear-gradient(135deg, #ef4444 0%, #dc2626 100%);">SI</div>
+                                <div class="presence-details">
+                                    <div class="presence-name">Sara Idrissi</div>
+                                    <div class="presence-group">Groupe A • ID: #004</div>
+                                </div>
+                            </div>
+                            <span class="badge badge-danger">Absent</span>
+                        </div>
+                    </div>
+
+                    <h3 style="margin-bottom: 20px; color: var(--warning); display: flex; align-items: center; gap: 8px;">
+                        <span>⏰</span>
+                        Retardataires (3)
+                    </h3>
+                    <div>
+                        <div class="presence-item">
+                            <div class="presence-info">
+                                <div class="presence-avatar" style="background: linear-gradient(135deg, #10b981 0%, #059669 100%);">FB</div>
+                                <div class="presence-details">
+                                    <div class="presence-name">Fatima Benali</div>
+                                    <div class="presence-group">Groupe A • ID: #002</div>
+                                    <div style="color: var(--text-secondary); font-size: 13px; margin-top: 8px; display: flex; gap: 16px;">
+                                        <span>⏰ Arrivée: <strong style="color: var(--warning);">09:15</strong></span>
+                                        <span>💬 <em>Problème de transport</em></span>
+                                    </div>
+                                </div>
+                            </div>
+                            <span class="badge badge-warning">15 min de retard</span>
+                        </div>
+                        <div class="presence-item" style="margin-top: 12px;">
+                            <div class="presence-info">
+                                <div class="presence-avatar" style="background: linear-gradient(135deg, #f59e0b 0%, #d97706 100%);">YT</div>
+                                <div class="presence-details">
+                                    <div class="presence-name">Youssef Tahiri</div>
+                                    <div class="presence-group">Groupe B • ID: #005</div>
+                                    <div style="color: var(--text-secondary); font-size: 13px; margin-top: 8px; display: flex; gap: 16px;">
+                                        <span>⏰ Arrivée: <strong style="color: var(--warning);">09:30</strong></span>
+                                        <span>💬 <em>Rendez-vous médical</em></span>
+                                    </div>
+                                </div>
+                            </div>
+                            <span class="badge badge-warning">30 min de retard</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Page: Statistiques -->
+            <div id="statistiques" class="page">
+                <div class="stats-grid">
+                    <div class="stat-card">
+                        <div class="stat-icon" style="background: var(--danger-light); color: var(--danger);">❌</div>
+                        <div class="stat-label">Taux d'absence</div>
+                        <div class="stat-value" style="color: var(--danger);">12.5%</div>
+                        <div class="stat-trend" style="color: var(--danger);">↑ +2.3% vs mois dernier</div>
+                        <div class="progress-bar">
+                            <div class="progress-fill" style="width: 12.5%; background: var(--danger);"></div>
+                        </div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-icon" style="background: var(--warning-light); color: var(--warning);">⏰</div>
+                        <div class="stat-label">Taux de retard</div>
+                        <div class="stat-value" style="color: var(--warning);">18.3%</div>
+                        <div class="stat-trend" style="color: var(--warning);">↑ +1.5% vs mois dernier</div>
+                        <div class="progress-bar">
+                            <div class="progress-fill" style="width: 18.3%; background: var(--warning);"></div>
+                        </div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-icon" style="background: var(--success-light); color: var(--success);">✓</div>
+                        <div class="stat-label">Taux de présence</div>
+                        <div class="stat-value" style="color: var(--success);">69.2%</div>
+                        <div class="stat-trend">↓ -3.8% vs mois dernier</div>
+                        <div class="progress-bar">
+                            <div class="progress-fill" style="width: 69.2%; background: var(--success);"></div>
+                        </div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-icon" style="background: var(--accent-light); color: var(--accent);">🕐</div>
+                        <div class="stat-label">Heure moyenne (retards)</div>
+                        <div class="stat-value" style="font-size: 36px;">09:22</div>
+                        <div class="stat-trend" style="color: var(--warning);">↑ +5 min vs mois dernier</div>
+                    </div>
+                </div>
+
+                <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(500px, 1fr)); gap: 24px;">
+                    <div class="card">
+                        <div class="card-header">
+                            <h2 class="card-title">
+                                <span>🏆</span>
+                                Top 3 - Plus absents
+                            </h2>
+                        </div>
+                        <div class="table-container">
+                            <table class="table">
+                                <thead>
+                                    <tr>
+                                        <th>Rang</th>
+                                        <th>Apprenant</th>
+                                        <th>Absences</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td>
+                                            <span style="font-size: 24px;">🥇</span>
+                                        </td>
+                                        <td>
+                                            <div style="display: flex; align-items: center; gap: 12px;">
+                                                <div style="width: 36px; height: 36px; border-radius: 8px; background: linear-gradient(135deg, #f59e0b 0%, #d97706 100%); display: flex; align-items: center; justify-content: center; font-weight: 700; font-size: 14px;">MC</div>
+                                                <div>
+                                                    <div style="font-weight: 600;">Mohamed Chakir</div>
+                                                    <div style="font-size: 12px; color: var(--text-secondary);">Groupe B</div>
+                                                </div>
+                                            </div>
+                                        </td>
+                                        <td><span class="badge badge-danger">8 absences</span></td>
+                                    </tr>
+                                    <tr>
+                                        <td>
+                                            <span style="font-size: 24px;">🥈</span>
+                                        </td>
+                                        <td>
+                                            <div style="display: flex; align-items: center; gap: 12px;">
+                                                <div style="width: 36px; height: 36px; border-radius: 8px; background: linear-gradient(135deg, #ef4444 0%, #dc2626 100%); display: flex; align-items: center; justify-content: center; font-weight: 700; font-size: 14px;">SI</div>
+                                                <div>
+                                                    <div style="font-weight: 600;">Sara Idrissi</div>
+                                                    <div style="font-size: 12px; color: var(--text-secondary);">Groupe A</div>
+                                                </div>
+                                            </div>
+                                        </td>
+                                        <td><span class="badge badge-danger">6 absences</span></td>
+                                    </tr>
+                                    <tr>
+                                        <td>
+                                            <span style="font-size: 24px;">🥉</span>
+                                        </td>
+                                        <td>
+                                            <div style="display: flex; align-items: center; gap: 12px;">
+                                                <div style="width: 36px; height: 36px; border-radius: 8px; background: linear-gradient(135deg, #6366f1 0%, #8b5cf6 100%); display: flex; align-items: center; justify-content: center; font-weight: 700; font-size: 14px;">KB</div>
+                                                <div>
+                                                    <div style="font-weight: 600;">Karim Benjelloun</div>
+                                                    <div style="font-size: 12px; color: var(--text-secondary);">Groupe B</div>
+                                                </div>
+                                            </div>
+                                        </td>
+                                        <td><span class="badge badge-danger">5 absences</span></td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+
+                    <div class="card">
+                        <div class="card-header">
+                            <h2 class="card-title">
+                                <span>⏰</span>
+                                Top 3 - Plus en retard
+                            </h2>
+                        </div>
+                        <div class="table-container">
+                            <table class="table">
+                                <thead>
+                                    <tr>
+                                        <th>Rang</th>
+                                        <th>Apprenant</th>
+                                        <th>Retards</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td>
+                                            <span style="font-size: 24px;">🥇</span>
+                                        </td>
+                                        <td>
+                                            <div style="display: flex; align-items: center; gap: 12px;">
+                                                <div style="width: 36px; height: 36px; border-radius: 8px; background: linear-gradient(135deg, #10b981 0%, #059669 100%); display: flex; align-items: center; justify-content: center; font-weight: 700; font-size: 14px;">FB</div>
+                                                <div>
+                                                    <div style="font-weight: 600;">Fatima Benali</div>
+                                                    <div style="font-size: 12px; color: var(--text-secondary);">Groupe A</div>
+                                                </div>
+                                            </div>
+                                        </td>
+                                        <td><span class="badge badge-warning">12 retards</span></td>
+                                    </tr>
+                                    <tr>
+                                        <td>
+                                            <span style="font-size: 24px;">🥈</span>
+                                        </td>
+                                        <td>
+                                            <div style="display: flex; align-items: center; gap: 12px;">
+                                                <div style="width: 36px; height: 36px; border-radius: 8px; background: linear-gradient(135deg, #f59e0b 0%, #d97706 100%); display: flex; align-items: center; justify-content: center; font-weight: 700; font-size: 14px;">YT</div>
+                                                <div>
+                                                    <div style="font-weight: 600;">Youssef Tahiri</div>
+                                                    <div style="font-size: 12px; color: var(--text-secondary);">Groupe B</div>
+                                                </div>
+                                            </div>
+                                        </td>
+                                        <td><span class="badge badge-warning">9 retards</span></td>
+                                    </tr>
+                                    <tr>
+                                        <td>
+                                            <span style="font-size: 24px;">🥉</span>
+                                        </td>
+                                        <td>
+                                            <div style="display: flex; align-items: center; gap: 12px;">
+                                                <div style="width: 36px; height: 36px; border-radius: 8px; background: linear-gradient(135deg, #6366f1 0%, #8b5cf6 100%); display: flex; align-items: center; justify-content: center; font-weight: 700; font-size: 14px;">HA</div>
+                                                <div>
+                                                    <div style="font-weight: 600;">Hassan Alami</div>
+                                                    <div style="font-size: 12px; color: var(--text-secondary);">Groupe A</div>
+                                                </div>
+                                            </div>
+                                        </td>
+                                        <td><span class="badge badge-warning">7 retards</span></td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        function showPage(pageId) {
+            // Hide all pages
+            document.querySelectorAll('.page').forEach(page => {
+                page.classList.remove('active');
+            });
+            
+            // Remove active class from all nav items
+            document.querySelectorAll('.nav-item').forEach(item => {
+                item.classList.remove('active');
+            });
+            
+            // Show selected page
+            document.getElementById(pageId).classList.add('active');
+            
+            // Add active class to clicked nav item
+            event.target.closest('.nav-item').classList.add('active');
+            
+            // Update page title
+            const titles = {
+                'apprenants': 'Gestion des Apprenants',
+                'presence': 'Prise de Présence',
+                'historique': 'Historique',
+                'statistiques': 'Statistiques'
+            };
+            document.getElementById('pageTitle').textContent = titles[pageId] || '';
+            
+            // Close sidebar on mobile
+            if (window.innerWidth <= 1024) {
+                document.getElementById('sidebar').classList.remove('active');
+            }
+        }
+
+        function toggleForm() {
+            const form = document.getElementById('addForm');
+            form.style.display = form.style.display === 'none' ? 'block' : 'none';
+        }
+
+        function toggleDelay(id) {
+            const delayForm = document.getElementById('delay' + id);
+            if (delayForm) {
+                delayForm.classList.toggle('active');
+            }
+        }
+
+        function toggleSidebar() {
+            document.getElementById('sidebar').classList.toggle('active');
+        }
+
+        // Close sidebar when clicking outside on mobile
+        document.addEventListener('click', function(event) {
+            const sidebar = document.getElementById('sidebar');
+            const menuToggle = document.querySelector('.menu-toggle');
+            
+            if (window.innerWidth <= 1024 && 
+                !sidebar.contains(event.target) && 
+                !menuToggle.contains(event.target) &&
+                sidebar.classList.contains('active')) {
+                sidebar.classList.remove('active');
+            }
+        });
+    </script>
+</body>
+</html> #001</div>
+                                            </div>
+                                        </div>
+                                    </td>
+                                    <td><span class="badge badge-success">Groupe A</span></td>
+                                    <td>
+                                        <div style="display: flex; align-items: center; gap: 12px;">
+                                            <span style="font-weight: 600; color: var(--success);">92%</span>
+                                            <div class="progress-bar" style="width: 100px;">
+                                                <div class="progress-fill" style="width: 92%; background: var(--success);"></div>
+                                            </div>
+                                        </div>
+                                    </td>
+                                    <td>
+                                        <button class="btn btn-warning" style="padding: 8px 14px; font-size: 12px;">✏️ Modifier</button>
+                                        <button class="btn btn-danger" style="padding: 8px 14px; font-size: 12px;">🗑️ Supprimer</button>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        <div style="display: flex; align-items: center; gap: 12px;">
+                                            <div style="width: 40px; height: 40px; border-radius: 10px; background: linear-gradient(135deg, #10b981 0%, #059669 100%); display: flex; align-items: center; justify-content: center; font-weight: 700;">FB</div>
+                                            <div>
+                                                <div style="font-weight: 600;">Fatima Benali</div>
+                                                <div style="font-size: 12px; color: var(--text-secondary);">ID:
