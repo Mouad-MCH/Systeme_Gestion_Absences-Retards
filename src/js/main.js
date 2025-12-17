@@ -10,6 +10,12 @@ let btn_login = document.getElementById("btn_login");
 let username = document.getElementById("username");
 let password = document.getElementById("password");
 
+let presence1 = document.querySelectorAll("[name = persone1]");
+let presence2 = document.querySelectorAll("[name = persone2]");
+let presence3 = document.querySelectorAll("[name = persone3]");
+
+let retard_ditail = document.querySelector(".retard_ditail");
+
 
 /*---------------------- *\
  * - Variables
@@ -52,3 +58,39 @@ function run(e) {
   btn_login.classList.toggle(`translate-[${50}0%]`)
   // document.body.style.backgroundColor = "red"
 }
+
+
+
+// presence.parentElement.classList.add("bg-[#10b981]")
+
+
+
+function Per(presences) {
+
+  presences.forEach((el) => {
+    el.parentElement.addEventListener("click" , (e) => {
+      if(el.value == "retard"){
+        retard_ditail.classList.toggle("hidden")
+      }
+    })
+
+    if(el.hasAttribute("checked")) {
+  
+      switch(el.value) {
+        case "present" : el.parentElement.classList.add("bg-[#10b981]")
+        break;
+        case "absent"  : el.parentElement.classList.add("bg-[#ef4444]")
+        break;
+        case "retard"  : el.parentElement.classList.add("bg-[#f59e0b]")
+        break;
+      }
+      
+    }
+  }) 
+}
+
+Per(presence1);
+Per(presence2);
+Per(presence3);
+
+
