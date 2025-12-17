@@ -23,9 +23,9 @@
 </head>
 <body>
 
-      <div class="flex w-full h-screen overflow-hidden">
+    <div class="flex w-ful h-full overflow-hidden ">
       <!-- Start Sidebar -->
-      <div class="max-sm:overflow-hidden z-10 sidebar bg-blue-950 text-white w-[250px] max-sm:w-[50px] h-screen md:p-5 p-2 flex flex-col justify-between shadow-[2px_0px_10px_#444]">
+      <div class="fixed max-sm:overflow-hidden z-10 sidebar h-screen bg-blue-950 text-white w-[250px] max-sm:w-[50px] sm:w-[200px]  md:p-5 p-2 flex flex-col justify-between shadow-[2px_0px_10px_#444]">
         <div>
           <div class="logo text-center mb-10 ">
             <img src="" alt="">
@@ -71,9 +71,9 @@
       
       <!-- Start Content -->
       
-      <div class="z-0 content w-full">
+      <div class="content flex-1 ml-[250px] max-sm:ml-[50px] sm:ml-[200px] z-0">
         <!-- Start NaveBar -->
-        <div class="navbar h-[50px] bg-blue-950 p-3">
+        <div class="navbar fixed w-[calc(100%-250px)] max-sm:w-[calc(100%-50px)] sm:w-[calc(100%-200px)] h-[50px] bg-blue-950 p-3 px-5">
           <div class="profil h-full w-fit ml-auto flex items-center gap-2">
             <img class="w-5 rounded-full" src="/public/avatar.avif" alt="">
             <h1 class="font-bold text-white">Mouad</h1>
@@ -81,15 +81,23 @@
         </div>
         <!-- End NaveBar -->
 
-        <div class="content_body p-5 bg-amber-100 h-full">
+        <div class="content_body mt-[50px] p-5 overflow-hidden bg-amber-100 h-full">
 
-            
+            <div class="content_box w-full h-500 rounded-lg bg-blue-900 p-5">
+              <div class="head flex justify-between">
+                <h2 class="text-white font-medium">Prise de Presence Quotidienne</h2>
+                <div class="search bg-[#0a0e27] w-fit px-2 py-1 rounded-lg text-white text-[12px]">
+                  <i></i>
+                  <input type="search" class="" id="input_search" placeholder="Rechercher...">
+                </div>
+              </div>
+            </div>
 
         </div>
 
       </div>
       
-      <!-- End Sidebar -->
+      <!-- End Content -->
     </div>
 
     <script src="src/js/main.js"></script>
