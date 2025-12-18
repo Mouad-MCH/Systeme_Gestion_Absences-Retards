@@ -1,7 +1,8 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
- <meta charset="UTF-8">
+  <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <link rel="icon" type="image/svg+xml" href="/vite.svg" />
   <title>Landing page</title>
@@ -16,59 +17,68 @@
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.0.1/css/all.min.css">
   <!--  google font-->
   <link rel="preconnect" href="https://fonts.gstatic.com" />
-    <link
-      href="https://fonts.googleapis.com/css2?family=Work+Sans:wght@200;300;400;500;600;700;800&display=swap"
-      rel="stylesheet"
-    />
+  <link href="https://fonts.googleapis.com/css2?family=Work+Sans:wght@200;300;400;500;600;700;800&display=swap"
+    rel="stylesheet" />
 </head>
-<body class=" bg-teal-300">
 
-      <div class="flex w-full">
-      <!-- Start Sidebar -->
-      <div class="z-10 sidebar dark:bg-blue-950 text-white min-w-[200px] h-screen p-5 flex flex-col justify-between shadow-[2px_0px_10px_#444]">
-        <div>
-          <div class="logo text-center mb-10 ">
-            <img src="" alt="">
-            <h1 class="font-black text-2xl">Enaa</h1>
-          </div>
-  
-          <ul class="list flex flex-col gap-y-3">
-            <li>
-              <a href="#" class="block p-1 rounded-lg bg-sky-800 transition-all duration-300  border-transparent hover:border-blue-500 hover:pl-2">
-                <i class="fa-solid fa-house mr-2"></i>Tableux de bord
-              </a>
-            </li>
-            <li><a href="#" class="block p-1 rounded-lg hover:bg-sky-800 transition-all duration-300  border-transparent hover:border-blue-500 hover:pl-2"><i class="fa-solid fa-users mr-2"></i>Etudiants</a></li>
-            <li><a href="#" class="block p-1 rounded-lg hover:bg-sky-800 transition-all duration-300  border-transparent hover:border-sky-500 hover:pl-2"><i class="fa-solid fa-user mr-2"></i>Presence</a></li>
-            <li><a href="#" class="block p-1 rounded-lg hover:bg-sky-800 transition-all duration-300  border-transparent hover:border-blue-500 hover:pl-2"><i class="fa-solid fa-clock-rotate-left mr-2"></i>Historique</a></li>
-          </ul>
+<body>
+
+  <div class="flex w-full">
+    <!-- Start Sidebar -->
+    <div
+      class="z-10 sidebar bg-blue-950 text-white min-w-[200px] h-screen pl-5 flex flex-col justify-between fixed pb-16">
+      <div>
+        <div class="logo mb-10 pt-3">
+          <img src="" alt="">
+          <h1 class="font-black text-5xl">Enaa</h1>
         </div>
 
-        <div class="logeout text-red-500 cursor-pointer hover:text-red-400">
-          <i class="fa-solid fa-arrow-right-from-bracket "></i>
-          <h1 class="inline">Deconnexion</h1>
-        </div> 
-
+        <ul class="list flex flex-col gap-y-7">
+          <li>
+            <a href="#"
+              class="block p-2 rounded-l-lg bg-sky-800 transition-all duration-300  border-transparent hover:border-blue-500 hover:pl-2">
+              <i class="fa-solid fa-house mr-2"></i>Tableux de bord
+            </a>
+          </li>
+          <li><a href="/Étudiants/etudiants.html"
+              class="block p-2 rounded-l-lg hover:bg-sky-800 transition-all duration-300  border-transparent hover:border-blue-500 hover:pl-2"><i
+                class="fa-solid fa-users mr-2"></i>Etudiants</a></li>
+          <li><a href="#"
+              class="block p-2 rounded-l-lg hover:bg-sky-800 transition-all duration-300  border-transparent hover:border-sky-500 hover:pl-2"><i
+                class="fa-solid fa-user mr-2"></i>Presence</a></li>
+          <li><a href="#"
+              class="block p-2 rounded-l-lg hover:bg-sky-800 transition-all duration-300  border-transparent hover:border-blue-500 hover:pl-2"><i
+                class="fa-solid fa-clock-rotate-left mr-2"></i>Historique</a></li>
+        </ul>
       </div>
 
-      <!-- End Sidebar -->
-      
-      <!-- Start Content -->
-      
-      <div class="z-0 content w-full">
-        <!-- Start NaveBar -->
-        <div class="navbar h-[50px] bg-blue-950 p-3">
-          <div class="profil h-full w-fit ml-auto flex items-center gap-2">
-            <img class="w-[20px] rounded-full" src="avatar.avif" alt="">
-            <h1 class="font-bold text-white">Mouad</h1>
-          </div>
-        </div>
-        <!-- End NaveBar -->
+      <div class="logeout text-red-500 cursor-pointer hover:text-red-400">
+        <i class="fa-solid fa-arrow-right-from-bracket "></i>
+        <h1 class="inline">Deconnexion</h1>
       </div>
-      
-       <!-- End Sidebar -->
+
     </div>
 
-    <script src="src/js/main.js"></script>
+    <!-- End Sidebar -->
+
+    <!-- Start Content -->
+    <div class="z-0 content w-full">
+      <!-- Start NaveBar -->
+      <div class="navbar h-[50px] bg-blue-950 p-3">
+        <div class="profil h-full w-fit ml-auto flex items-center gap-2">
+          <img class="w-[20px] rounded-full" src="avatar.avif" alt="">
+          <h1 class="font-bold text-white">Mouad</h1>
+        </div>
+      </div>
+      <!-- End NaveBar -->
+    </div>
+
+    <!-- End Sidebar -->
+  </div>
+
+
+
+  <script src="src/js/main.js"></script>
 </body>
+
 </html>
