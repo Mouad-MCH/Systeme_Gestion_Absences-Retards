@@ -60,32 +60,24 @@ function run(e) {
 }
 
 
-
-// presence.parentElement.classList.add("bg-[#10b981]")
-
-
+// Peresence page --------------------------------------
 
 function Per(presences) {
 
   presences.forEach((el) => {
     el.parentElement.addEventListener("click" , (e) => {
+      console.log(e.target.previousElementSibling.value)
       if(el.value == "retard"){
         retard_ditail.classList.toggle("hidden")
       }
+      check(e.target.previousElementSibling.value , el)
+
+      presences.forEach(el => {
+        
+      })
+
     })
 
-    if(el.hasAttribute("checked")) {
-  
-      switch(el.value) {
-        case "present" : el.parentElement.classList.add("bg-[#10b981]")
-        break;
-        case "absent"  : el.parentElement.classList.add("bg-[#ef4444]")
-        break;
-        case "retard"  : el.parentElement.classList.add("bg-[#f59e0b]")
-        break;
-      }
-      
-    }
   }) 
 }
 
@@ -94,3 +86,13 @@ Per(presence2);
 Per(presence3);
 
 
+function check(value,el) {
+        switch(value) {
+        case "present" : el.parentElement.classList.add("bg-[#10b981]")
+        break;
+        case "absent"  : el.parentElement.classList.add("bg-[#ef4444]")
+        break;
+        case "retard"  : el.parentElement.classList.add("bg-[#f59e0b]")
+        break;
+      }
+}
