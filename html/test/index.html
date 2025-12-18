@@ -1,0 +1,203 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+ <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Landing page</title>
+  <!-- file css  -->
+  <link rel="stylesheet" href="css/style.css">
+  <!-- normalize css file -->
+  <link rel="stylesheet" href="css/normalize.css">
+  <!-- font Awesome Library -->
+  <link rel="stylesheet" href="css/all.min.css">
+  <!--  google font-->
+  <link rel="preconnect" href="https://fonts.gstatic.com" />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Work+Sans:wght@200;300;400;500;600;700;800&display=swap"
+      rel="stylesheet"
+    />
+</head>
+<body>
+
+  <div class="grid gap-4">
+  <!-- Item 1 -->
+  <div class="flex items-center justify-between gap-4 rounded-2xl border border-slate-200 bg-white p-4">
+    <div class="flex items-center gap-3">
+      <div class="grid h-10 w-10 place-items-center rounded-xl bg-indigo-600 text-sm font-bold text-white">
+        HA
+      </div>
+      <div>
+        <div class="text-sm font-semibold text-slate-900">Hassan Alami</div>
+        <div class="text-xs text-slate-500">Groupe A • ID: #001</div>
+      </div>
+    </div>
+
+    <div class="flex gap-3">
+      <div class="flex gap-3 rounded-xl bg-slate-100 p-1.5">
+        <label class="cursor-pointer">
+          <input class="peer sr-only" type="radio" name="presence1" value="present" checked>
+          <span
+            class="flex items-center gap-1.5 rounded-lg px-4 py-2 text-[13px] font-semibold transition
+                   text-slate-700 hover:bg-white/70
+                   peer-checked:bg-emerald-600 peer-checked:text-white">
+            ✓ Présent
+          </span>
+        </label>
+
+        <label class="cursor-pointer">
+          <input class="peer sr-only" type="radio" name="presence1" value="absent">
+          <span
+            class="flex items-center gap-1.5 rounded-lg px-4 py-2 text-[13px] font-semibold transition
+                   text-slate-700 hover:bg-white/70
+                   peer-checked:bg-rose-600 peer-checked:text-white">
+            ✗ Absent
+          </span>
+        </label>
+
+        <label class="cursor-pointer">
+          <input class="peer sr-only" type="radio" name="presence1" value="retard" onclick="toggleDelay(1)">
+          <span
+            class="flex items-center gap-1.5 rounded-lg px-4 py-2 text-[13px] font-semibold transition
+                   text-slate-700 hover:bg-white/70
+                   peer-checked:bg-amber-500 peer-checked:text-white">
+            ⏰ Retard
+          </span>
+        </label>
+      </div>
+    </div>
+  </div>
+
+  <!-- Item 2 -->
+  <div class="flex items-center justify-between gap-4 rounded-2xl border border-slate-200 bg-white p-4">
+    <div class="flex items-center gap-3">
+      <div
+        class="grid h-10 w-10 place-items-center rounded-xl text-sm font-bold text-white"
+        style="background: linear-gradient(135deg, #10b981 0%, #059669 100%);">
+        FB
+      </div>
+      <div>
+        <div class="text-sm font-semibold text-slate-900">Fatima Benali</div>
+        <div class="text-xs text-slate-500">Groupe A • ID: #002</div>
+      </div>
+    </div>
+
+    <div class="flex gap-3">
+      <div class="flex gap-3 rounded-xl bg-slate-100 p-1.5">
+        <label class="cursor-pointer">
+          <input class="peer sr-only" type="radio" name="presence2" value="present">
+          <span
+            class="flex items-center gap-1.5 rounded-lg px-4 py-2 text-[13px] font-semibold transition
+                   text-slate-700 hover:bg-white/70
+                   peer-checked:bg-emerald-600 peer-checked:text-white">
+            ✓ Présent
+          </span>
+        </label>
+
+        <label class="cursor-pointer">
+          <input class="peer sr-only" type="radio" name="presence2" value="absent">
+          <span
+            class="flex items-center gap-1.5 rounded-lg px-4 py-2 text-[13px] font-semibold transition
+                   text-slate-700 hover:bg-white/70
+                   peer-checked:bg-rose-600 peer-checked:text-white">
+            ✗ Absent
+          </span>
+        </label>
+
+        <label class="cursor-pointer">
+          <input class="peer sr-only" type="radio" name="presence2" value="retard" onclick="toggleDelay(2)" checked>
+          <span
+            class="flex items-center gap-1.5 rounded-lg px-4 py-2 text-[13px] font-semibold transition
+                   text-slate-700 hover:bg-white/70
+                   peer-checked:bg-amber-500 peer-checked:text-white">
+            ⏰ Retard
+          </span>
+        </label>
+      </div>
+    </div>
+  </div>
+
+  <!-- Delay form (example shown active) -->
+  <div id="delay2" class="rounded-2xl border border-amber-200 bg-amber-50 p-4">
+    <h4 class="mb-4 flex items-center gap-2 font-semibold text-amber-600">
+      <span>⏰</span>
+      Informations du retard
+    </h4>
+
+    <div class="grid gap-4 md:grid-cols-2">
+      <div>
+        <label class="mb-1 block text-sm font-medium text-slate-700">Heure d'arrivée</label>
+        <input
+          type="time"
+          value="09:15"
+          class="w-full rounded-xl border border-slate-200 bg-white px-3 py-2 text-sm outline-none
+                 focus:border-amber-400 focus:ring-2 focus:ring-amber-200"
+        />
+      </div>
+
+      <div>
+        <label class="mb-1 block text-sm font-medium text-slate-700">Motif du retard</label>
+        <input
+          type="text"
+          value="Problème de transport"
+          placeholder="Ex: Transport, Rendez-vous médical..."
+          class="w-full rounded-xl border border-slate-200 bg-white px-3 py-2 text-sm outline-none
+                 focus:border-amber-400 focus:ring-2 focus:ring-amber-200"
+        />
+      </div>
+    </div>
+  </div>
+
+  <!-- Item 3 -->
+  <div class="flex items-center justify-between gap-4 rounded-2xl border border-slate-200 bg-white p-4">
+    <div class="flex items-center gap-3">
+      <div
+        class="grid h-10 w-10 place-items-center rounded-xl text-sm font-bold text-white"
+        style="background: linear-gradient(135deg, #f59e0b 0%, #d97706 100%);">
+        MC
+      </div>
+      <div>
+        <div class="text-sm font-semibold text-slate-900">Mohamed Chakir</div>
+        <div class="text-xs text-slate-500">Groupe B • ID: #003</div>
+      </div>
+    </div>
+
+    <div class="flex gap-3">
+      <div class="flex gap-3 rounded-xl bg-slate-100 p-1.5">
+        <label class="cursor-pointer">
+          <input class="peer sr-only" type="radio" name="presence3" value="present">
+          <span
+            class="flex items-center gap-1.5 rounded-lg px-4 py-2 text-[13px] font-semibold transition
+                   text-slate-700 hover:bg-white/70
+                   peer-checked:bg-emerald-600 peer-checked:text-white">
+            ✓ Présent
+          </span>
+        </label>
+
+        <label class="cursor-pointer">
+          <input class="peer sr-only" type="radio" name="presence3" value="absent" checked>
+          <span
+            class="flex items-center gap-1.5 rounded-lg px-4 py-2 text-[13px] font-semibold transition
+                   text-slate-700 hover:bg-white/70
+                   peer-checked:bg-rose-600 peer-checked:text-white">
+            ✗ Absent
+          </span>
+        </label>
+
+        <label class="cursor-pointer">
+          <input class="peer sr-only" type="radio" name="presence3" value="retard" onclick="toggleDelay(3)">
+          <span
+            class="flex items-center gap-1.5 rounded-lg px-4 py-2 text-[13px] font-semibold transition
+                   text-slate-700 hover:bg-white/70
+                   peer-checked:bg-amber-500 peer-checked:text-white">
+            ⏰ Retard
+          </span>
+        </label>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script src=""></script>
+    <script src="js/main.js"></script>
+</body>
+</html>

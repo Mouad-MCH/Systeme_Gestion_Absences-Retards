@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+ <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="icon" type="image/svg+xml" href="/vite.svg" />
+  <title>Login</title>
+  <!-- Tailwind css cdn -->
+  <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+  <!-- file css  -->
+  <link rel="stylesheet" href="/src/css/style.css">
+  <!-- normalize css file -->
+  <!-- <link rel="stylesheet" href="/src/css/normalize.css"> -->
+  <!-- font Awesome Library -->
+  <link rel="stylesheet" href="/src/css/all.min.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.0.1/css/all.min.css">
+  <!--  google font-->
+  <link rel="preconnect" href="https://fonts.gstatic.com" />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Work+Sans:wght@200;300;400;500;600;700;800&display=swap"
+      rel="stylesheet"
+    />
+</head>
+<body class="flex justify-center items-center h-screen">
+
+  <div class="bg-blue-950 w-90 h-90 p-6 rounded-lg text-white overflow-hidden">
+    <h1 class="text-center font-medium">Admin</h1>
+    
+    <form action="">
+      <div class="inputs my-2">
+        <label for="username" class="block">username</label>
+        <input class="p-2 bg-black rounded-lg mb-3 text-white mt-1 w-full" type="text" name="username" id="username" onfocus="focuss()">
+      </div>
+
+      <div class="inputs my-2">
+        <label for="password" class="block">password</label>
+        <input class="p-2 bg-black rounded-lg mb-3 text-white mt-1 w-full" type="password" name="password" id="password" onfocus="focuss()">
+      </div>
+
+    </form>
+
+    <button class="ml-[50%] mt-[50px] translate-x-[-50%] py-2 px-8 bg-blue-500 font-bold text-white rounded-lg hover:bg-blue-700 transition-all duration-300 cursor-pointer" id="btn_login" onmouseenter="run(this)">Login</button>
+  </div>
+
+    <script src="src/js/main.js"></script>
+</body>
+</html>
