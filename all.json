@@ -1,0 +1,25 @@
+[
+  {
+    "date": "Mercredi 17 December 2025",
+    "absents": [
+      { "syno": "RH", "nom": "Rihane Harchi", "group": "4", "id": "0001" }
+    ],
+    "retards": [
+      { "syno": "AH", "nom": "Ahmed Harchi", "group": "2", "id": "0003", "duree": "30" },
+      { "syno": "YH", "nom": "Yassine Harchi", "group": "5", "id": "0002", "duree": "15" }
+    ]
+  },
+  {
+    "date": "Mardi 16 December 2025",
+    "presents": [],
+    "absents": [],
+    "retards": []
+  },
+  {
+    "date": "Lundi 15 December 2025",
+    "absents": [
+      { "syno": "RH", "nom": "Rihane Harchi", "group": "4", "id": "0001" }
+    ],
+    "retards": []
+  }
+]
