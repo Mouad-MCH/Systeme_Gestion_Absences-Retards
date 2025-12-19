@@ -238,9 +238,9 @@ btn_save.onclick = () => {
       let id = el.querySelector(".info_detail #Id").textContent;
       let name = el.querySelector(".info_detail #name").textContent;
       let groupe = el.querySelector(".info_detail #groupe").textContent;
-      let input = el.querySelectorAll("input");
+      let input = el.querySelectorAll("label");
       let status = input.forEach(l => {
-        if(l.checked == true) {
+        if(l.firstEChild.checked == true) {
           return l.value
         }
       })
@@ -251,8 +251,15 @@ btn_save.onclick = () => {
   })
 
   console.log(absent_present)
+  saveEtudien(absent_present)
 }
 
+
+// Function Localstorig
+
+    function saveEtudien(presence) {
+        localStorage.setItem("presence", JSON.stringify(absent_present))
+    }
 
 
 // function Add_A_P() {
