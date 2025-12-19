@@ -10,9 +10,9 @@ let btn_login = document.getElementById("btn_login");
 let username = document.getElementById("username");
 let password = document.getElementById("password");
 
-let presence1 = document.querySelectorAll("[name = persone1]");
-let presence2 = document.querySelectorAll("[name = persone2]");
-let presence3 = document.querySelectorAll("[name = persone3]");
+/********************************************* */
+
+let search = document.getElementById("input_search")
 
 let retard_ditail = document.querySelector(".retard_ditail");
 
@@ -29,7 +29,8 @@ let date = document.querySelector(".form-input")
 
 let x;
 let counter = persone.length;
-let absent_present = []
+let absent_present = [];
+let retard = [];
 let persone_status;
 
 /*---------------------- *\
@@ -42,8 +43,6 @@ async function test() {
   let data = await res.json()
   console.log(data)
 }
-
-
 
 /*---------------------- *\
  * - Function
@@ -138,7 +137,7 @@ function check(value,el , isTrue) {
 
 // Function Add Persone ---------------------------
 
-function addElement() {
+function addElement(id,nom,groupe) {
   counter++
 
   const div = document.createElement("div");
@@ -150,11 +149,11 @@ function addElement() {
 
                     <div class="info flex items-center gap-4">
 
-                      <div class="avatar bg-[#6366f1] p-2 rounded-lg">MC</div>
+                      <div class="avatar bg-[#6366f1] p-2 min-w-[40px] text-center rounded-lg">${nom.slice(0,2)}</div>
 
                       <div class="info_detail">
-                        <h3 id ="name">Mouad CHARADI</h3>
-                        <p class="opacity-50 text-[12px]"><span id ="groupe">Groupe 4</span> . ID: <span id="Id">#001</span></p>
+                        <h3 id ="name">${nom}</h3>
+                      <p class="opacity-50 text-[12px]"><span id ="groupe">Groupe ${groupe}</span> . ID: <span id="Id">#${id}</span></p>
                       </div>
 
                     </div>
@@ -212,10 +211,7 @@ function addElement() {
 
   Per(div_in)
 }
-
-addElement()
-addElement()
-addElement()
+getEtudiant()
 
 persone = document.querySelectorAll(".persone");
 
@@ -239,31 +235,93 @@ btn_save.onclick = () => {
       let name = el.querySelector(".info_detail #name").textContent;
       let groupe = el.querySelector(".info_detail #groupe").textContent;
       let input = el.querySelectorAll("label");
-      let status = input.forEach(l => {
-        if(l.firstEChild.checked == true) {
-          return l.value
+      let status;
+
+      input.forEach(l => {
+        if(l.firstElementChild.checked == true) {
+          status = l.firstElementChild.value
         }
       })
 
-      console.log(dat,id, name, groupe, status)
+      let heure = el.querySelector(".time input").value;
+      let motif = el.querySelector(".motif input").value;
 
-      absent_present.push({dat, id, name, groupe, status}) 
+      console.log(dat,id, name, groupe, status , heure,motif)
+
+      // absent_present.push({dat,  id, name, groupe, status}) 
+      // absent_present.push({dat, etudient:[]})
+
+      absent_present = JSON.parse(localStorage.getItem("presence"))
+
+      if(absent_present.length > 0) {
+        absent_present.forEach(e => {
+          if(e.dat == dat) {
+            e.etudient.push({id, name, groupe, status})
+            return
+          }
+          absent_present.push({dat, etudient:[{id, name, groupe, status}]})
+        })
+       }else {
+        absent_present.push({dat, etudient:[{id, name, groupe, status}]})
+       }
+       
+
+      if(status == "retard") {
+        retard.push({dat,id,name,heure,motif})
+      }
   })
 
   console.log(absent_present)
-  saveEtudien(absent_present)
+  saveData("presence", absent_present)
+  saveData("retard",retard)
+
+  window.alert("Secssece ! 👌")
+
 }
 
 
 // Function Localstorig
 
-    function saveEtudien(presence) {
-        localStorage.setItem("presence", JSON.stringify(absent_present))
+function saveData(name,presence) {
+    localStorage.setItem(name , JSON.stringify(presence))
+}
+
+
+// Function get Etudiant from localStorig
+
+
+function getEtudiant() {
+  let x = JSON.parse(localStorage.getItem("etudien"))
+  x.forEach(el => {
+    let id = el.id;
+    let nom = el.name;
+    let groupe = el.group;
+
+    addElement(id,nom,groupe)
+  })
+}
+
+
+// function Search
+
+document.addEventListener("keydown",(e) =>{
+  if(e.key == "Enter") {
+    filter(search.value)
+  }
+})
+
+function filter(value) {
+  if(value == "") {
+    alert("Search can't be void 🤨")
+    return
+  }
+
+  persone.forEach(el => {
+    let id = el.querySelector(".info_detail #Id").textContent;
+    let name = el.querySelector(".info_detail #name").textContent;
+    let groupe = el.querySelector(".info_detail #groupe").textContent;
+    if(value !== id && value !== name && value !== groupe) {
+      el.classList.add("hidden")
     }
-
-
-// function Add_A_P() {
-  
-// }
-
-
+  })
+}
