@@ -222,6 +222,7 @@ persone = document.querySelectorAll(".persone");
 // Function Add Absent and Present
 
 btn_save.onclick = () => {
+  absent_present = JSON.parse(localStorage.getItem("presence")) || [];
 
   if(date.value == "") {
     alert("date chould not be empty")
@@ -251,16 +252,13 @@ btn_save.onclick = () => {
       // absent_present.push({dat,  id, name, groupe, status}) 
       // absent_present.push({dat, etudient:[]})
 
-      absent_present = JSON.parse(localStorage.getItem("presence"))
-
       if(absent_present.length > 0) {
-        absent_present.forEach(e => {
-          if(e.dat == dat) {
-            e.etudient.push({id, name, groupe, status})
-            return
+          let z = findDate(absent_present,dat);
+          if(typeof z === "number") {  
+            absent_present[z].etudient.push({id, name, groupe, status})
+          }else {
+            absent_present.push({dat, etudient:[{id, name, groupe, status}]})
           }
-          absent_present.push({dat, etudient:[{id, name, groupe, status}]})
-        })
        }else {
         absent_present.push({dat, etudient:[{id, name, groupe, status}]})
        }
@@ -279,11 +277,25 @@ btn_save.onclick = () => {
 
 }
 
+// Find Date
+
+function findDate(arr, dat) {
+  arr.forEach((el,i) => {
+    if(el.dat === dat) return i
+  })
+
+  return false
+}
+
 
 // Function Localstorig
 
 function saveData(name,presence) {
     localStorage.setItem(name , JSON.stringify(presence))
+}
+
+function getData(name) {
+  localStorage.getItem(name)
 }
 
 
@@ -313,6 +325,7 @@ document.addEventListener("keydown",(e) =>{
 function filter(value) {
   if(value == "") {
     alert("Search can't be void 🤨")
+    persone.forEach(el => el.classList.remove('hidden'))
     return
   }
 
@@ -322,6 +335,11 @@ function filter(value) {
     let groupe = el.querySelector(".info_detail #groupe").textContent;
     if(value !== id && value !== name && value !== groupe) {
       el.classList.add("hidden")
+    }else {
+      el.classList.remove("hidden")
     }
   })
 }
+
+// localStorage.removeItem('presence')
+// localStorage.removeItem('retard')
