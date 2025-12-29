@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="src/css/historique.css">
+    <title>Document</title>
+</head>
+<body>
+
+
+                <!-- ÉCRAN HISTORIQUE -->
+   <div id="historique-screen">
+        <div class="container">
+            <div class="header">
+                <h1>Historique des Absences & Retards</h1>
+                <div class="search-bar">
+                    <input type="text" id="searchInput" placeholder="Rechercher...">
+                    <span class="search-icon">🔍</span>
+                </div>
+            </div>
+
+            <div class="divider"></div>
+
+            <div class="cards-container" id="cardsContainer">
+                <!-- Les cards seront générées par JavaScript -->
+            </div>
+        </div>
+   </div>
+
+    <!-- ÉCRAN DÉTAILS -->
+    <div id="details-screen">
+        <div class="container">
+            <button class="back-button" id="backButton">
+                <span>←</span>
+                Retour
+            </button>
+
+            <div class="main-card">
+                <h1 id="detailsTitle">Détails - Lundi 15 Décembre 2025</h1>
+
+                <div class="divider"></div>
+
+                <!-- Section Absents -->
+                <div id="absentSection">
+                    <div class="section-title absent">
+                        <span>Absent</span>
+                        <span class="count-badge" id="absentCount">(0)</span>
+                    </div>
+                    <div id="absentList"></div>
+                </div>
+
+                <!-- Section Retardataires -->
+                <div id="retardSection">
+                    <div class="section-title retard">
+                        <span>Retardataires</span>
+                        <span class="count-badge" id="retardCount">(0)</span>
+                    </div>
+                    <div id="retardList"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    <script src="src/js/historique.js"></script>
+    <script src="src/js/fetch.js"></script>
+</body>
+</html>
