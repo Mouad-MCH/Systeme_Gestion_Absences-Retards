@@ -1,0 +1,282 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+ <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="icon" type="image/svg+xml" href="/vite.svg" />
+  <title>page Presence</title>
+  <!-- Tailwind css cdn -->
+  <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+  <!-- file css  -->
+  <link rel="stylesheet" href="/src/css/style.css">
+  <!-- normalize css file -->
+  <!-- <link rel="stylesheet" href="/src/css/normalize.css"> -->
+  <!-- font Awesome Library -->
+  <link rel="stylesheet" href="/src/css/all.min.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.0.1/css/all.min.css">
+  <!--  google font-->
+  <link rel="preconnect" href="https://fonts.gstatic.com" />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Work+Sans:wght@200;300;400;500;600;700;800&display=swap"
+      rel="stylesheet"
+    />
+</head>
+<body>
+
+    <div class="flex w-ful h-full overflow-hidden ">
+      <!-- Start Sidebar -->
+      <div class="fixed max-sm:overflow-hidden z-10 sidebar h-screen bg-blue-950 text-white w-[250px] max-sm:w-[50px] sm:w-[200px]  md:p-5 p-2 flex flex-col justify-between shadow-[2px_0px_10px_#444]">
+        <div>
+          <div class="logo text-center mb-10 ">
+            <i class="fa-solid fa-bars"></i>
+            <h1 class="font-black text-2xl max-sm:hidden">Enaa</h1>
+          </div>
+  
+          <ul class="list flex flex-col sm:gap-y-3 gap-y-10">
+            <li>
+              <a href="#" class="max-sm:text-[0px] block p-1 rounded-lg hover:bg-sky-800 transition-all duration-300  border-transparent hover:border-blue-500 hover:pl-2">
+                <i class="fa-solid fa-house mr-2 text-base"></i>Tableux de bord
+              </a>
+            </li>
+
+            <li>
+              <a href="#" class="max-sm:text-[0px] block p-1 rounded-lg hover:bg-sky-800 transition-all duration-300  border-transparent hover:border-blue-500 hover:pl-2">
+                <i class="fa-solid fa-users mr-2 text-base"></i>Etudiants
+              </a>
+            </li>
+
+            <li>
+              <a href="#" class="max-sm:text-[0px] block p-1 rounded-lg bg-sky-800 transition-all duration-300  border-transparent hover:border-sky-500 hover:pl-2">
+                <i class="fa-solid fa-user mr-2 text-base"></i>Presence
+              </a>
+            </li>
+
+            <li>
+              <a href="#" class="max-sm:text-[0px] block p-1 rounded-lg hover:bg-sky-800 transition-all duration-300  border-transparent hover:border-blue-500 hover:pl-2">
+                <i class="fa-solid fa-clock-rotate-left mr-2 text-base"></i>Historique
+              </a>
+            </li>
+            
+          </ul>
+        </div>
+
+        <div class="logeout text-red-500 cursor-pointer hover:text-red-400">
+          <i class="fa-solid fa-arrow-right-from-bracket "></i>
+          <h1 class="inline max-sm:hidden">Deconnexion</h1>
+        </div> 
+
+      </div>
+
+      <!-- End Sidebar -->
+      
+      <!-- Start Content -->
+      
+      <div class="content flex-1 ml-[250px] max-sm:ml-[50px] sm:ml-[200px] z-0">
+        <!-- Start NaveBar -->
+        <div class="navbar z-10 fixed w-[calc(100%-250px)] max-sm:w-[calc(100%-50px)] sm:w-[calc(100%-200px)] h-[50px] bg-blue-950 p-3 px-5">
+          <div class="profil h-full w-fit ml-auto flex items-center gap-2">
+            <img class="w-5 rounded-full" src="/public/avatar.avif" alt="">
+            <h1 class="font-bold text-white">Mouad</h1>
+          </div>
+        </div>
+        <!-- End NaveBar -->
+
+        <div class="content_body mt-[50px] p-5 overflow-hidden bg-amber-100 h-full">
+
+            <div class="content_box w-full rounded-lg bg-blue-900 p-5 overflow-hidden">
+              <!-- Start head -->
+              <div class="head flex justify-between items-center flex-wrap gap-3 border-b-2 pb-5 border-[#2d3a5f] mb-3">
+
+                <h2 class="text-white font-medium">Prise de Presence Quotidienne</h2>
+
+                <!-- Start Search -->
+                <div class="search sm:w-[170px] lg:w-[300px] bg-[#0a0e27] w-fit h-fit p-2 rounded-lg text-white text-[12px] flex items-center gap-2">
+                  <img class="w-[20px]" src="public/search.png" alt="">
+                  <input type="search" class="h-full outline-0 w-full" id="input_search" placeholder="Rechercher...">
+                </div>
+                <!-- End Search -->
+
+                <!-- Start Button -->
+                <button class="flex items-center text-white gap-2 bg-[#6366f1] p-3 rounded-lg cursor-pointer hover:bg-[#4f46e5] transition-all duration-300">
+                   <img class="w-[20px]" src="public/diskette.png" alt="">
+                   Enregister la presennce
+                </button>
+                <!-- End Button -->
+
+              </div>
+              <!-- End head -->
+
+              <!-- Start footer -->
+              <div class="footer w-full rounded-lg">
+                <!-- Start footer head Slecte date -->
+                <div class="footer_head text-white mb-5"> 
+                  <label class="opacity-300 font-bold mb-3 block">SELECTIONNER LA DATE</label>
+                  <input type="date" class="form-input invert bg-[#edeef3] p-3 w-[250px] rounded-lg text-black border border-gray-700 focus:ring-2 focus:ring-blue-500 focus:border-blue-500">
+                </div>
+                <!-- End footer head Slecte date -->
+
+                <!-- Start present -->
+                <div class="footer_bottom space-y-5">
+
+                  <div class="persone flex items-center justify-between bg-[#0a0e27] rounded-lg text-white py-2 px-5 hover:bg-[#141b3a] transition-all duration-200 hover:border-2 hover:border-[#1c339a]">
+
+                    <div class="info flex items-center gap-4">
+
+                      <div class="avatar bg-[#6366f1] p-2 rounded-lg">MC</div>
+
+                      <div class="info_detail">
+                        <h3>Mouad CHARADI</h3>
+                        <p class="opacity-50 text-[12px]"><span>Groupe 4</span> . <span>ID: #001</span></p>
+                      </div>
+
+                    </div>
+                    
+                    <div class="group_radio bg-[rgba(99,102,241,0.1)] sm:p-3 p-1 rounded-lg flex items-center sm:gap-4">
+
+                      <label for="present" 
+                            class="radio_option sm:px-[16px] sm:py-[8px] px-[6px] py-[4px] flex items-center 
+                                   gap-[6px] rounded-[6px] cursor-pointer transition-all duration-300
+                                   ">
+                        <input type="radio" name="persone1" value="present" class="hidden peer" checked>
+                        <span>Present</span>
+                      </label>
+
+                      <label for="absent" 
+                             class="radio_option sm:px-[16px] sm:py-[8px] px-[6px] py-[4px] flex items-center 
+                                   sm:gap-[6px] gap-[3px] rounded-[6px] cursor-pointer transition-all duration-300">
+                      <input class="hidden" type="radio" name="persone1" value="absent">
+                      <span>Absent</span>
+                      </label>
+
+                      <label for="retard" 
+                             class="radio_option sm:px-[16px] sm:py-[8px] px-[6px] py-[4px] flex items-center 
+                                   gap-[6px] rounded-[6px] cursor-pointer transition-all duration-300">
+                      <input class="hidden" type="radio" name="persone1" value="retard">
+                      <span>Retard</span>
+                      </label>
+
+                    </div>
+
+                  </div>
+
+                  <div class="persone flex items-center justify-between bg-[#0a0e27] rounded-lg text-white py-2 px-5 hover:bg-[#141b3a] transition-all duration-200 hover:border-2 hover:border-[#1c339a]">
+
+                    <div class="info flex items-center gap-4">
+
+                      <div class="avatar bg-[#f59e0b] p-2 rounded-lg">MC</div>
+
+                      <div class="info_detail">
+                        <h3>Mouad CHARADI</h3>
+                        <p class="opacity-50 text-[12px]"><span>Groupe 4</span> . <span>ID: #001</span></p>
+                      </div>
+
+                    </div>
+                    
+                    <div class="group_radio bg-[rgba(99,102,241,0.1)] sm:p-3 p-1 rounded-lg flex items-center sm:gap-4">
+
+                      <label for="present" 
+                            class="radio_option sm:px-[16px] sm:py-[8px] px-[6px] py-[4px] flex items-center 
+                                   gap-[6px] rounded-[6px] cursor-pointer transition-all duration-300
+                                   ">
+                        <input type="radio" name="persone2" value="present" class="hidden peer">
+                        <span>Present</span>
+                      </label>
+
+                      <label for="absent" 
+                             class="radio_option sm:px-[16px] sm:py-[8px] px-[6px] py-[4px] flex items-center 
+                                   sm:gap-[6px] gap-[3px] rounded-[6px] cursor-pointer transition-all duration-300">
+                      <input class="hidden" type="radio" name="persone1" value="absent">
+                      <span>Absent</span>
+                      </label>
+
+                      <label for="retard" 
+                             class="radio_option sm:px-[16px] sm:py-[8px] px-[6px] py-[4px] flex items-center 
+                                   gap-[6px] rounded-[6px] cursor-pointer transition-all duration-300">
+                      <input class="hidden" type="radio" name="persone1" value="retard" checked>
+                      <span>Retard</span>
+                      </label>
+
+                    </div>
+
+                  </div>
+
+                  <!-- Start Retard detaile -->
+
+                  <div class="retard_ditail rounded-lg p-5 bg-[#141b3a] border-l-[#f59e0b] border-l-3 text-white hover:bg-blue-950 transition-all duration-300 hover:border-2 hover:border-[#f59e0b]">
+                    <h2 class="text-[#f59e0b] mb-5 ">Iformations du retard</h2>
+                    <div class="retard_info flex items-center justify-between gap-3">
+
+                      <div class="time w-[50%]">
+                        <h2 class="opacity-35">HEURE D'ARRIVEE</h2>
+                        <input class="bg-[#0a0e27] p-2 w-full rounded-lg mt-2" type="time">
+                      </div>
+
+                      <div class="motif w-[50%]">
+                        <h2 class="opacity-35">MORIF DU RETARD</h2>
+                        <input  class="bg-[#0a0e27] p-2 w-full rounded-lg mt-2" type="text">
+                      </div>
+
+                    </div>
+                  </div>
+
+                  <!-- End Retard detaile -->
+            
+                  <div class="persone flex items-center justify-between bg-[#0a0e27] rounded-lg text-white py-2 px-5 hover:bg-[#141b3a] transition-all duration-200 hover:border-2 hover:border-[#1c339a]">
+
+                    <div class="info flex items-center gap-4">
+
+                      <div class="avatar bg-[#ef4444] p-2 rounded-lg">MC</div>
+
+                      <div class="info_detail">
+                        <h3>Mouad CHARADI</h3>
+                        <p class="opacity-50 text-[12px]"><span>Groupe 4</span> . <span>ID: #001</span></p>
+                      </div>
+
+                    </div>
+                    
+                    <div class="group_radio bg-[rgba(99,102,241,0.1)] sm:p-3 p-1 rounded-lg flex items-center sm:gap-4">
+
+                      <label for="present" 
+                            class="radio_option sm:px-[16px] sm:py-[8px] px-[6px] py-[4px] flex items-center 
+                                   gap-[6px] rounded-[6px] cursor-pointer transition-all duration-300
+                                   ">
+                        <input type="radio" name="persone1" value="present" class="hidden peer">
+                        <span>Present</span>
+                      </label>
+
+                      <label for="absent" 
+                             class="radio_option sm:px-[16px] sm:py-[8px] px-[6px] py-[4px] flex items-center 
+                                   sm:gap-[6px] gap-[3px] rounded-[6px] cursor-pointer transition-all duration-300">
+                      <input class="hidden" type="radio" name="persone1" value="absent" checked>
+                      <span>Absent</span>
+                      </label>
+
+                      <label for="retard" 
+                             class="radio_option sm:px-[16px] sm:py-[8px] px-[6px] py-[4px] flex items-center 
+                                   gap-[6px] rounded-[6px] cursor-pointer transition-all duration-300">
+                      <input class="hidden" type="radio" name="persone1" value="retard">
+                      <span>Retard</span>
+                      </label>
+
+                    </div>
+
+                  </div>
+
+                </div>
+                <!-- End present -->
+
+              </div>
+              <!-- End footer -->
+
+            </div>
+
+        </div>
+
+      </div>
+      
+      <!-- End Content -->
+    </div>
+
+    <script src="src/js/main.js"></script>
+</body>
+</html>

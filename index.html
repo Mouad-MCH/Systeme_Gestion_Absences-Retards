@@ -21,42 +21,75 @@
     rel="stylesheet" />
 </head>
 
-<body>
+    <div class="flex w-full h-screen overflow-hidden">
+      <!-- Start Sidebar -->
+      <div class="fixed max-sm:overflow-hidden z-10 sidebar h-screen bg-blue-950 text-white w-[250px] max-sm:w-[50px] sm:w-[200px]  md:p-5 p-2 flex flex-col justify-between shadow-[2px_0px_10px_#444]">
+        <div>
+          <div class="logo text-center mb-10 ">
+            <img src="" alt="">
+            <h1 class="font-black text-2xl">Enaa</h1>
+          </div>
+  
+          <ul class="list flex flex-col sm:gap-y-3 gap-y-10">
+            <li>
+              <a href="#" class="max-sm:text-[0px] block p-1 rounded-lg hover:bg-sky-800 transition-all duration-300  border-transparent hover:border-blue-500 hover:pl-2">
+                <i class="fa-solid fa-house mr-2 text-base"></i>Tableux de bord
+              </a>
+            </li>
 
-  <div class="flex w-full">
-    <!-- Start Sidebar -->
-    <div
-      class="z-10 sidebar bg-blue-950 text-white min-w-[200px] h-screen pl-5 flex flex-col justify-between fixed pb-16">
-      <div>
-        <div class="logo mb-10 pt-3">
-          <img src="" alt="">
-          <h1 class="font-black text-5xl">Enaa</h1>
+            <li>
+              <a href="#" class="max-sm:text-[0px] block p-1 rounded-lg hover:bg-sky-800 transition-all duration-300  border-transparent hover:border-blue-500 hover:pl-2">
+                <i class="fa-solid fa-users mr-2 text-base"></i>Etudiants
+              </a>
+            </li>
+
+            <li>
+              <a href="#" class="max-sm:text-[0px] block p-1 rounded-lg bg-sky-800 transition-all duration-300  border-transparent hover:border-sky-500 hover:pl-2">
+                <i class="fa-solid fa-user mr-2 text-base"></i>Presence
+              </a>
+            </li>
+
+            <li>
+              <a href="#" class="max-sm:text-[0px] block p-1 rounded-lg hover:bg-sky-800 transition-all duration-300  border-transparent hover:border-blue-500 hover:pl-2">
+                <i class="fa-solid fa-clock-rotate-left mr-2 text-base"></i>Historique
+              </a>
+            </li>
+            
+          </ul>
         </div>
 
-        <ul class="list flex flex-col gap-y-7">
-          <li>
-            <a href="#"
-              class="block p-2 rounded-l-lg bg-sky-800 transition-all duration-300  border-transparent hover:border-blue-500 hover:pl-2">
-              <i class="fa-solid fa-house mr-2"></i>Tableux de bord
-            </a>
-          </li>
-          <li><a href="/Étudiants/etudiants.html"
-              class="block p-2 rounded-l-lg hover:bg-sky-800 transition-all duration-300  border-transparent hover:border-blue-500 hover:pl-2"><i
-                class="fa-solid fa-users mr-2"></i>Etudiants</a></li>
-          <li><a href="#"
-              class="block p-2 rounded-l-lg hover:bg-sky-800 transition-all duration-300  border-transparent hover:border-sky-500 hover:pl-2"><i
-                class="fa-solid fa-user mr-2"></i>Presence</a></li>
-          <li><a href="#"
-              class="block p-2 rounded-l-lg hover:bg-sky-800 transition-all duration-300  border-transparent hover:border-blue-500 hover:pl-2"><i
-                class="fa-solid fa-clock-rotate-left mr-2"></i>Historique</a></li>
-        </ul>
+        <div class="logeout text-red-500 cursor-pointer hover:text-red-400">
+          <i class="fa-solid fa-arrow-right-from-bracket "></i>
+          <h1 class="inline max-sm:hidden">Deconnexion</h1>
+        </div> 
+
       </div>
 
-      <div class="logeout text-red-500 cursor-pointer hover:text-red-400">
-        <i class="fa-solid fa-arrow-right-from-bracket "></i>
-        <h1 class="inline">Deconnexion</h1>
-      </div>
+      <!-- End Sidebar -->
 
+      <!-- Start Content -->
+      
+      <div class="content flex-1 ml-[250px] max-sm:ml-[50px] sm:ml-[200px] z-0">
+        <!-- Start NaveBar -->
+        <div class="navbar fixed w-[calc(100%-250px)] max-sm:w-[calc(100%-50px)] sm:w-[calc(100%-200px)] h-[50px] bg-blue-950 p-3 px-5">
+          <div class="profil h-full w-fit ml-auto flex items-center gap-2">
+            <img class="w-5 rounded-full" src="/public/avatar.avif" alt="">
+            <h1 class="font-bold text-white">Mouad</h1>
+          </div>
+        </div>
+        <!-- End NaveBar -->
+
+        <div class="content_body mt-[50px] p-5 overflow-hidden bg-amber-100 h-full">
+
+            <div class="content_box w-full h-500 rounded-lg bg-blue-900 p-5">
+
+            </div>
+
+        </div>
+
+      </div>
+      
+      <!-- End Content -->
     </div>
 
     <!-- End Sidebar -->
