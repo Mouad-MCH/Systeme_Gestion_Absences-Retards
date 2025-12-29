@@ -4,13 +4,6 @@
  * - DOM Variables
 \* --------------------- */
 
-let logeout = document.querySelector(".logeout");
-
-let btn_login = document.getElementById("btn_login");
-let username = document.getElementById("username");
-let password = document.getElementById("password");
-
-/********************************************* */
 
 let search = document.getElementById("input_search")
 
@@ -27,7 +20,6 @@ let date = document.querySelector(".form-input")
  * - Variables
 \* --------------------- */
 
-let x;
 let counter = persone.length;
 let absent_present = [];
 let retard = [];
@@ -37,44 +29,21 @@ let persone_status;
  * - Fetch API
 \* --------------------- */
 
-async function test() {
-  const res = await fetch("../../all.json")
-  
-  let data = await res.json()
-  console.log(data)
-}
+
 
 /*---------------------- *\
  * - Function
 \* --------------------- */
 
-logeout.addEventListener("click", () => {
-  window.location.href = "Login.html"
+//----------- add user name in dashboard -----//
+
+document.addEventListener("DOMContentLoaded", () => {
+  let user = localStorage.getItem("username");
+  document.querySelector(".profil h1").innerHTML = user;
 })
 
 
-function run(e) {
-    if(username.value === "" || password.value === "") {
-    x = Math.floor(Math.random(1) * 44)
-    btn_login.classList.add(`translate-[${50}0%]`)
-    return
-  }
-
-
-  e.addEventListener("click" , () => {
-    window.location.href = "presence.html"
-  })
-
-} 
-
-
-  function focuss() {
-  btn_login.classList.toggle(`translate-[${50}0%]`)
-  // document.body.style.backgroundColor = "red"
-}
-
-
-// Function checkbox --------------------------------------
+//---------- Function checkbox -------------//
 
 function Per(presences) {
 
@@ -110,10 +79,6 @@ function Per(presences) {
   }) 
 }
 
-// Per(presence1);
-// Per(presence2);
-// Per(presence3);
-
 
 function check(value,el , isTrue) {
   if(isTrue) {
@@ -131,11 +96,11 @@ function check(value,el , isTrue) {
 
 }
 
-//--------------------------------------------
+//--------------------------------------------//
 
 
 
-// Function Add Persone ---------------------------
+//--------------- Function Add Persone ------------//
 
 function addElement(id,nom,groupe) {
   counter++
@@ -217,12 +182,11 @@ persone = document.querySelectorAll(".persone");
 
 
 
-
-
-// Function Add Absent and Present
+//---------- Function Add Absent and Present ---------------//
 
 btn_save.onclick = () => {
   absent_present = JSON.parse(localStorage.getItem("presence")) || [];
+  retard = JSON.parse(localStorage.getItem("retard")) || [];
 
   if(date.value == "") {
     alert("date chould not be empty")
@@ -231,7 +195,7 @@ btn_save.onclick = () => {
 
   let dat = date.value;
   persone.forEach(el => {
-
+    
       let id = el.querySelector(".info_detail #Id").textContent;
       let name = el.querySelector(".info_detail #name").textContent;
       let groupe = el.querySelector(".info_detail #groupe").textContent;
@@ -249,11 +213,9 @@ btn_save.onclick = () => {
 
       console.log(dat,id, name, groupe, status , heure,motif)
 
-      // absent_present.push({dat,  id, name, groupe, status}) 
-      // absent_present.push({dat, etudient:[]})
-
       if(absent_present.length > 0) {
           let z = findDate(absent_present,dat);
+
           if(typeof z === "number") {  
             absent_present[z].etudient.push({id, name, groupe, status})
           }else {
@@ -265,7 +227,13 @@ btn_save.onclick = () => {
        
 
       if(status == "retard") {
-        retard.push({dat,id,name,heure,motif})
+        let r = FindRotardData(retard, dat);
+        if (typeof r === "number") {
+          retard[r].etudient.push({id,name,heure,motif})
+        }else {
+          retard.push({dat, etudient:[{id,name,heure,motif}]})
+        }
+        
       }
   })
 
@@ -277,18 +245,28 @@ btn_save.onclick = () => {
 
 }
 
-// Find Date
+//--------------- Find Date ---------------//
 
 function findDate(arr, dat) {
-  arr.forEach((el,i) => {
-    if(el.dat === dat) return i
-  })
+
+  for(let i = 0; i<arr.length; i++) {
+    if(arr[i].dat === dat) return i
+  }
+
+  return false
+}
+
+function FindRotardData(arr, dat) {
+
+  for(let i = 0; i<arr.length; i++) {
+    if(arr[i].dat === dat) return i
+  }
 
   return false
 }
 
 
-// Function Localstorig
+//--------------- Function Localstorig ---------------//
 
 function saveData(name,presence) {
     localStorage.setItem(name , JSON.stringify(presence))
@@ -299,7 +277,7 @@ function getData(name) {
 }
 
 
-// Function get Etudiant from localStorig
+//----------- Function get Etudiant from localStorig ---------------//
 
 
 function getEtudiant() {
@@ -314,7 +292,7 @@ function getEtudiant() {
 }
 
 
-// function Search
+//--------------- function Search ---------------//
 
 document.addEventListener("keydown",(e) =>{
   if(e.key == "Enter") {
