@@ -1,15 +1,42 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="src/css/historique.css">
-    <title>Document</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="icon" type="image/svg+xml" href="/vite.svg" />
+  <title>Landing page</title>
+  <!-- Tailwind css cdn -->
+  <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+  <!-- file css  -->
+  <!-- <link rel="stylesheet" href="/src/css/style.css"> -->
+   <link rel="stylesheet" href="src/css/historique.css">
+  <!-- normalize css file -->
+  <!-- <link rel="stylesheet" href="/src/css/normalize.css"> -->
+  <!-- font Awesome Library -->
+  <link rel="stylesheet" href="/src/css/all.min.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.0.1/css/all.min.css">
+  <!--  google font-->
+  <link rel="preconnect" href="https://fonts.gstatic.com" />
+  <link href="https://fonts.googleapis.com/css2?family=Work+Sans:wght@200;300;400;500;600;700;800&display=swap"
+    rel="stylesheet" />
 </head>
 <body>
 
+    <div class="flex w-ful h-full overflow-hidden global">
+      <!-- Start Sidebar -->
 
-                <!-- ÉCRAN HISTORIQUE -->
+      <!-- End Sidebar -->
+      
+      <!-- Start Content -->
+      
+      <div class="content flex-1 ml-[250px] max-sm:ml-[50px] sm:ml-[200px] z-0">
+        <!-- Start NaveBar -->
+
+        <!-- End NaveBar -->
+
+        <div class="content_body mt-[50px] p-5 overflow-hidden h-full">
+
+<!-- ÉCRAN HISTORIQUE -->
    <div id="historique-screen">
         <div class="container">
             <div class="header">
@@ -62,8 +89,17 @@
         </div>
     </div>
 
+        </div>
+
+      </div>
+      
+      <!-- End Content -->
+    </div>
+
 
     <script src="src/js/historique.js"></script>
+    <script src="src/js/main.js"></script>
+    <script src="src/js/login.js"></script>
     <script src="src/js/fetch.js"></script>
 </body>
 </html>
