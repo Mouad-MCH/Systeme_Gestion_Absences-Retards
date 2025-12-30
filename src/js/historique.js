@@ -9,24 +9,32 @@
  * - Variables
 \* --------------------- */
 
-let presence = [
-    {
-        date: "2025/02/01",
-        etudient: [
-            {id:2, name:"mouad", groupe: "Group 1", status: "absent",}
-        ]
-    }
-];
+// let presence = [
+//     {
+//         date: "2025/02/01",
+//         etudient: [
+//             {id:1, name:"mouad", groupe: "Group 1", status: "absent",},
+//             {id:2, name:"fathi", groupe: "Group 3", status: "retard",},
+//             {id:3, name:"adam", groupe: "Group 2", status: "present",}
+//         ]
+//     }
+// ];
+// console.log(presence);
+
+// let retard = [
+//     {
+//         date: "2025/02/01",
+//         etudient: [
+//             {id:2, name:"fathi", heure: "20:05", motif: "dkn,skldc"}
+//         ]
+//     }
+// ];
 
 
-let retard = [
-    {
-        date: "2025/02/01",
-        etudient: [
-            {id:2, name:"mouad", heure: "20:05", motif: "dkn,skldc"}
-        ]
-    }
-];
+let presence = JSON.parse(localStorage.getItem("presence")) || [];
+let retard = JSON.parse(localStorage.getItem("retard")) || [];
+
+
 
 /*---------------------- *\
  * - Fetch API
@@ -38,137 +46,214 @@ let retard = [
  * - Function
 \* --------------------- */
 
+        // const attendanceData = [
+        //     {
+        //         id: 1,
+        //         date: "Lundi 15 Décembre 2025",
+        //         absents: 1,
+        //         retards: 5,
+        //         presents: 45,
+        //         details: {
+        //             absents: [
+        //                 {
+        //                     id: 101,
+        //                     name: "Mouad CHARADI",
+        //                     initials: "MC",
+        //                     color: "orange",
+        //                     groupe: "Groupe 4",
+        //                     studentId: "#001"
+        //                 }
+        //             ],
+        //             retards: [
+        //                 {
+        //                     id: 102,
+        //                     name: "Mouad CHARADI",
+        //                     initials: "MC",
+        //                     color: "purple",
+        //                     groupe: "Groupe 4",
+        //                     studentId: "#001",
+        //                     duration: "30 min retard"
+        //                 },
+        //                 {
+        //                     id: 103,
+        //                     name: "Fathi Iaghres",
+        //                     initials: "FL",
+        //                     color: "green",
+        //                     groupe: "Groupe 4",
+        //                     studentId: "#001",
+        //                     duration: "15 min retard"
+        //                 }
+        //             ]
+        //         }
+        //     },
+        //     {
+        //         id: 2,
+        //         date: "Mardi 16 Décembre 2025",
+        //         absents: 2,
+        //         retards: 3,
+        //         presents: 45,
+        //         details: {
+        //             absents: [
+        //                 {
+        //                     id: 201,
+        //                     name: "Ahmed MEDINA",
+        //                     initials: "AM",
+        //                     color: "orange",
+        //                     groupe: "Groupe 2",
+        //                     studentId: "#005"
+        //                 },
+        //                 {
+        //                     id: 202,
+        //                     name: "Rania SOUFI",
+        //                     initials: "RS",
+        //                     color: "orange",
+        //                     groupe: "Groupe 3",
+        //                     studentId: "#008"
+        //                 }
+        //             ],
+        //             retards: [
+        //                 {
+        //                     id: 203,
+        //                     name: "Sara AHMED",
+        //                     initials: "SA",
+        //                     color: "purple",
+        //                     groupe: "Groupe 1",
+        //                     studentId: "#003",
+        //                     duration: "20 min retard"
+        //                 },
+        //                 {
+        //                     id: 204,
+        //                     name: "Omar KARIM",
+        //                     initials: "OK",
+        //                     color: "green",
+        //                     groupe: "Groupe 2",
+        //                     studentId: "#004",
+        //                     duration: "10 min retard"
+        //                 },
+        //                 {
+        //                     id: 205,
+        //                     name: "Laila HASSAN",
+        //                     initials: "LH",
+        //                     color: "purple",
+        //                     groupe: "Groupe 4",
+        //                     studentId: "#009",
+        //                     duration: "25 min retard"
+        //                 }
+        //             ]
+        //         }
+        //     },
+        //     {
+        //         id: 3,
+        //         date: "Mercredi 17 Décembre 2025",
+        //         absents: 0,
+        //         retards: 2,
+        //         presents: 50,
+        //         details: {
+        //             absents: [],
+        //             retards: [
+        //                 {
+        //                     id: 301,
+        //                     name: "Mohamed ALI",
+        //                     initials: "MA",
+        //                     color: "green",
+        //                     groupe: "Groupe 1",
+        //                     studentId: "#002",
+        //                     duration: "5 min retard"
+        //                 },
+        //                 {
+        //                     id: 302,
+        //                     name: "Fatima NOUR",
+        //                     initials: "FN",
+        //                     color: "purple",
+        //                     groupe: "Groupe 3",
+        //                     studentId: "#007",
+        //                     duration: "15 min retard"
+        //                 }
+        //             ]
+        //         }
+        //     }
+        // ];
 
-  // ============================================
-        // 📊 BASE DE DONNÉES
-        // ============================================
-        const attendanceData = [
-            {
-                id: 1,
-                date: "Lundi 15 Décembre 2025",
-                absents: 1,
-                retards: 5,
-                presents: 45,
-                details: {
-                    absents: [
-                        {
-                            id: 101,
-                            name: "Mouad CHARADI",
-                            initials: "MC",
-                            color: "orange",
-                            groupe: "Groupe 4",
-                            studentId: "#001"
-                        }
-                    ],
-                    retards: [
-                        {
-                            id: 102,
-                            name: "Mouad CHARADI",
-                            initials: "MC",
-                            color: "purple",
-                            groupe: "Groupe 4",
-                            studentId: "#001",
-                            duration: "30 min retard"
-                        },
-                        {
-                            id: 103,
-                            name: "Fathi Iaghres",
-                            initials: "FL",
-                            color: "green",
-                            groupe: "Groupe 4",
-                            studentId: "#001",
-                            duration: "15 min retard"
-                        }
-                    ]
-                }
-            },
-            {
-                id: 2,
-                date: "Mardi 16 Décembre 2025",
-                absents: 2,
-                retards: 3,
-                presents: 45,
-                details: {
-                    absents: [
-                        {
-                            id: 201,
-                            name: "Ahmed MEDINA",
-                            initials: "AM",
-                            color: "orange",
-                            groupe: "Groupe 2",
-                            studentId: "#005"
-                        },
-                        {
-                            id: 202,
-                            name: "Rania SOUFI",
-                            initials: "RS",
-                            color: "orange",
-                            groupe: "Groupe 3",
-                            studentId: "#008"
-                        }
-                    ],
-                    retards: [
-                        {
-                            id: 203,
-                            name: "Sara AHMED",
-                            initials: "SA",
-                            color: "purple",
-                            groupe: "Groupe 1",
-                            studentId: "#003",
-                            duration: "20 min retard"
-                        },
-                        {
-                            id: 204,
-                            name: "Omar KARIM",
-                            initials: "OK",
-                            color: "green",
-                            groupe: "Groupe 2",
-                            studentId: "#004",
-                            duration: "10 min retard"
-                        },
-                        {
-                            id: 205,
-                            name: "Laila HASSAN",
-                            initials: "LH",
-                            color: "purple",
-                            groupe: "Groupe 4",
-                            studentId: "#009",
-                            duration: "25 min retard"
-                        }
-                    ]
-                }
-            },
-            {
-                id: 3,
-                date: "Mercredi 17 Décembre 2025",
-                absents: 0,
-                retards: 2,
-                presents: 50,
-                details: {
-                    absents: [],
-                    retards: [
-                        {
-                            id: 301,
-                            name: "Mohamed ALI",
-                            initials: "MA",
-                            color: "green",
-                            groupe: "Groupe 1",
-                            studentId: "#002",
-                            duration: "5 min retard"
-                        },
-                        {
-                            id: 302,
-                            name: "Fatima NOUR",
-                            initials: "FN",
-                            color: "purple",
-                            groupe: "Groupe 3",
-                            studentId: "#007",
-                            duration: "15 min retard"
-                        }
-                    ]
-                }
-            }
-        ];
+        // ===============================
+// ✅ presence[] + retard[]  ==>  attendanceData[]
+// ===============================
+
+function initialsFromName(name = "") {
+  const parts = name.trim().split(/\s+/).filter(Boolean);
+  if (parts.length === 0) return "??";
+  if (parts.length === 1) return parts[0].slice(0, 2).toUpperCase();
+  return (parts[0][0] + parts[parts.length - 1][0]).toUpperCase();
+}
+
+function colorByStatus(status) {
+  if (status === "absent") return "orange";
+  if (status === "retard") return "purple";
+  return "green";
+}
+
+function formatDateFR(dateStr) {
+  return dateStr.replaceAll("/", "-");
+}
+
+function buildAttendanceData(presence = [], retard = []) {
+  const retardByDateId = new Map();
+  retard.forEach((rDay) => {
+    const dateKey = formatDateFR(rDay.dat);
+    (rDay.etudient || []).forEach((s) => {
+      retardByDateId.set(`${dateKey}__${s.id}`, s);
+    });
+  });
+
+  return presence.map((pDay, index) => {
+    const dateKey = formatDateFR(pDay.dat);
+
+    const absents = [];
+    const retards = [];
+    let presentsCount = 0;
+
+    (pDay.etudient || []).forEach((s) => {
+      const base = {
+        id: s.id,
+        name: s.name,
+        initials: initialsFromName(s.name),
+        color: colorByStatus(s.status),
+        groupe: s.groupe,
+        studentId: `#${String(s.id).padStart(3, "0")}`, // generated since not provided
+      };
+
+      if (s.status === "absent") {
+        absents.push(base);
+      } else if (s.status === "retard") {
+        const lateInfo = retardByDateId.get(`${dateKey}__${s.id}`);
+        retards.push({
+          ...base,
+          // your old UI expects duration text; we build it from retard DB
+          duration: lateInfo
+            ? `${lateInfo.heure || ""}${lateInfo.motif ? " - " + lateInfo.motif : ""}`.trim()
+            : "Retard",
+        });
+      } else if (s.status === "present") {
+        presentsCount += 1;
+      }
+    });
+
+    return {
+      id: index + 1,
+      date: dateKey, // you can format however your UI wants
+      absents: absents.length,
+      retards: retards.length,
+      presents: presentsCount,
+      details: {
+        absents,
+        retards,
+      },
+    };
+  });
+}
+
+let attendanceData = buildAttendanceData(presence, retard);;
+
+
 
         // ============================================
         // 🎯 VARIABLES GLOBALES
