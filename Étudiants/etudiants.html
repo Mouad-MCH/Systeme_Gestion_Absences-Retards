@@ -25,25 +25,28 @@
 
   <div class="grid grid-rows-1 overflow-hidden">
     <!-- Start Sidebar -->
-      <div class="sidebar fixed max-sm:overflow-hidden z-10 h-screen bg-blue-950 text-white w-[250px] max-sm:w-[50px] sm:w-[200px] md:p-5 p-2 flex flex-col justify-between shadow-[2px_0px_10px_#444]">
-        <div>
-          <div class="logo text-center mb-10 ">
-            <i class="fa-solid fa-bars"></i>
-            <h1 class="font-black text-2xl max-sm:hidden">Enaa</h1>
-          </div>
-  
-          <ul class="list flex flex-col sm:gap-y-3 gap-y-10">
-            <li>
-              <a href="#" class="max-sm:text-[0px] block p-1 rounded-lg hover:bg-sky-800 transition-all duration-300  border-transparent hover:border-blue-500 hover:pl-2">
-                <i class="fa-solid fa-house mr-2 text-base"></i>Tableux de bord
-              </a>
-            </li>
+    <div
+      class="max-sm:overflow-hidden z-2 sidebar bg-blue-950 text-white w-[250px] max-sm:w-[50px] h-screen md:pl-5 md:pb-10 flex flex-col justify-between fixed">
+      <div>
+        <div class="logo pt-2 mb-10">
+          <img src="" alt="">
+          <h1 class="font-black text-5xl">Enaa</h1>
+        </div>
 
-            <li>
-              <a href="./Étudiants/etudiants.html" class="max-sm:text-[0px] block p-1 rounded-lg bg-sky-800 hover:bg-sky-800 transition-all duration-300  border-transparent hover:border-blue-500 hover:pl-2">
-                <i class="fa-solid fa-users mr-2 text-base"></i>Etudiants
-              </a>
-            </li>
+        <ul class="list flex flex-col sm:gap-y-3 gap-y-10">
+          <li>
+            <a href="/Étudiants/dashboard.html"
+              class="max-sm:text-[0px] block p-2 rounded-l-lg hover:bg-sky-800 transition-all duration-300  border-transparent hover:border-blue-500 hover:pl-2">
+              <i class="fa-solid fa-house mr-2 text-base"></i>Tableux de bord
+            </a>
+          </li>
+
+          <li>
+            <a href="#"
+              class="max-sm:text-[0px] block p-2 rounded-l-lg bg-sky-800 transition-all duration-300  border-transparent hover:border-blue-500 hover:pl-2">
+              <i class="fa-solid fa-users mr-2 text-base"></i>Etudiants
+            </a>
+          </li>
 
             <li>
               <a href="../presence.html" class="max-sm:text-[0px] block p-1 rounded-lg transition-all duration-300  border-transparent hover:border-sky-500 hover:pl-2">
@@ -73,12 +76,12 @@
 
     <div class="content flex-1 ml-[250px] max-sm:ml-[50px] sm:ml-[200px] z-0">
       <!-- Start NaveBar -->
-        <div class="navbar z-10 fixed w-[calc(100%-250px)] max-sm:w-[calc(100%-50px)] sm:w-[calc(100%-200px)] h-[50px] bg-blue-950 p-3 px-5">
-          <div class="profil h-full w-fit ml-auto flex items-center gap-2">
-            <img class="w-5 rounded-full" src="/public/avatar.avif" alt="">
-            <h1 class="font-bold text-white">Mouad</h1>
-          </div>
+      <div class="navbar min-w-full h-[50px] bg-blue-950 p-3 z-1 fixed">
+        <div class="profil h-full w-fit ml-auto flex items-center gap-2">
+          <img class="w-5 rounded-full" src="/public/avatar.avif" alt="">
+          <h1 class="font-bold text-white"></h1>
         </div>
+      </div>
       <!-- End NaveBar -->
 
       <!-- Start Gestion des Étudiants -->
@@ -123,7 +126,8 @@
         <!-- Start barSearch and butten add Étudiants -->
         <div class="flex justify-between items-center pt-18">
           <div class="">
-            <input id="btnSearch" class="bg-blue-950 py-2 pr-30 rounded-lg  pl-3 text-white" type="text" placeholder="Rechercher...">
+            <input id="btnSearch" class="bg-blue-950 py-2 pr-30 rounded-lg  pl-3 text-white" type="text"
+              placeholder="Rechercher...">
           </div>
           <div class="flex items-center gap-2 bg-blue-950 py-2 px-5 text-white rounded-lg" id="btnAddEtudiant">
             <i class="fa-solid fa-circle-plus fa-xl" style="color: #ffffff;"></i>
@@ -132,47 +136,55 @@
         </div>
 
         <!-- Start form add Étudiants -->
-          <div id="modal" class="fixed inset-19 hidden">
-          <div class="flex  justify-center gap-4">
-            <form action="" id="formEtudian" class="w-90 bg-[#020C48] p-5 rounded-lg">
-              <div class="mt-1">
-                <h1 class="text-white font-bold text-2xl">Ajouter un nouvel éléve</h1>
-              </div>
-              <div class="mt-8">
-                <label for="" class="w-full text-white">Nom et Prénom</label>
-                <input id="name" class="w-full bg-white rounded pl-2 py-3 mt-2" type="text"
-                  placeholder="Saisissez Nom et Prénom">
-              </div>
-              <div class="mt-4">
-                <label for="" class="w-full text-white">Email</label>
-                <input id="email" class="w-full bg-white rounded pl-2 py-3 mt-2" type="email"
-                  placeholder="Saisissez adresse e-mail">
-              </div>
-              <div class="flex items-center  gap-4 mt-7">
-                <div>
-                  <label for="" class="w-full text-white">Group</label>
-                  <input id="group" class="w-full bg-white rounded pl-2 py-3 mt-2" type="number"
-                    placeholder="Saisissez group">
-                </div>
-                <div>
-                  <label for="" class="w-full text-white">Statut</label>
-                  <select id="statut" class="bg-white p-3 rounded-lg mt-2">
-                    <option value="Actifs">Actifs</option>
-                    <option value="inactifs">Inactifs</option>
-                  </select>
-                </div>
-              </div>
-              <span id="errnom" class="text-red-500 text-sm"></span>
-              <div class="mt-5 flex gap-2 justify-end">
-                <button id="closModel" class="bg-red-600 px-4 py-2 rounded-lg text-white font-bold">Annuler</button>
-                <button type="submit" class="bg-sky-800 px-4 py-2 rounded-lg text-white font-bold">Ajouter</button>
-              </div>
-            </form>
-          </div>
-          </div>
+        <div id="modal" class="fixed inset-0 hidden flex items-center justify-center min-h-screen">
+          <div class="absolute inset-0  bg-black/40 backdrop-blur-sm z-1"></div>
+          <form id="formEtudian" class="w-[400px] bg-[#020C48] p-5 rounded-lg flex flex-col z-90">
 
+            <h1 class="text-white font-bold text-2xl mb-6">
+              Ajouter un nouvel élève
+            </h1>
 
+            <div class="mb-4">
+              <label class="text-white">Nom et Prénom</label>
+              <input id="name" class="w-full bg-white rounded pl-2 py-3 mt-2" type="text"
+                placeholder="Saisissez Nom et Prénom">
+            </div>
 
+            <div class="mb-4">
+              <label class="text-white">Email</label>
+              <input id="email" class="w-full bg-white rounded pl-2 py-3 mt-2" type="email"
+                placeholder="Saisissez adresse e-mail">
+            </div>
+
+            <div class="flex  gap-4 mb-4">
+              <div class="flex-1">
+                <label class="text-white">Group</label>
+                <input id="group" class="w-full bg-white rounded pl-2 py-3 mt-2" type="number"
+                  placeholder="Saisissez group">
+              </div>
+
+              <div class="flex flex-col">
+                <label class="text-white">Statut</label>
+                <select id="statut" class="bg-white p-3 rounded-lg mt-2">
+                  <option value="Actifs">Actifs</option>
+                  <option value="Inactifs">Inactifs</option>
+                </select>
+              </div>
+            </div>
+
+            <span id="errnom" class="text-red-500 text-sm mb-3"></span>
+
+            <div class="flex justify-end gap-2">
+              <button id="closModel" type="button" class="bg-red-600 px-4 py-2 rounded-lg text-white font-bold">
+                Annuler
+              </button>
+              <button type="submit" class="bg-sky-800 px-4 py-2 rounded-lg text-white font-bold">
+                Ajouter
+              </button>
+            </div>
+
+          </form>
+        </div>
         <!-- end form add Étudiants -->
         <!-- end barSearch and butten add Étudiants -->
         <!-- Start tablaux Étudiants -->
@@ -199,6 +211,59 @@
     </div>
 
     <!-- End Sidebar -->
+  </div>
+
+
+
+  <!-- Start form edite Étudiants -->
+  <div id="modalEdite" class="fixed inset-0 hidden flex items-center justify-center min-h-screen">
+    <div class="absolute inset-0  bg-black/40 backdrop-blur-sm z-1"></div>
+    <form id="formEditEtudiant" class="w-[400px] bg-[#020C48] p-5 rounded-lg flex flex-col z-90">
+
+      <h1 class="text-white font-bold text-2xl mb-6">
+        Edite un élève
+      </h1>
+
+      <div class="mb-4">
+        <label class="text-white">Nom et Prénom</label>
+        <input id="editName" class="w-full bg-white rounded pl-2 py-3 mt-2" type="text"
+          placeholder="Écrivez un nouveau nom et prénom">
+      </div>
+
+      <div class="mb-4">
+        <label class="text-white">Email</label>
+        <input id="editEmail" class="w-full bg-white rounded pl-2 py-3 mt-2" type="email"
+          placeholder="Écrivez un nouveau adresse e-mail">
+      </div>
+
+      <div class="flex  gap-4 mb-4">
+        <div class="flex-1">
+          <label class="text-white">Group</label>
+          <input id="editGroup" class="w-full bg-white rounded pl-2 py-3 mt-2" type="number"
+            placeholder="Écrivez un nouveau group">
+        </div>
+        <input type="hidden" id="editHiddenId">
+        <div class="flex flex-col">
+          <label class="text-white">Statut</label>
+          <select id="editStatut" onchange="changeColor()" class="bg-white p-3 rounded-lg mt-2">
+            <option value="Actifs">Actifs</option>
+            <option value="Inactifs">Inactifs</option>
+          </select>
+        </div>
+      </div>
+
+      <span id="erredit" class="text-red-500 text-sm mb-3"></span>
+
+      <div class="flex justify-end gap-2">
+        <button id="closeEditModal" type="button" class="bg-red-600 px-4 py-2 rounded-lg text-white font-bold">
+          Annuler
+        </button>
+        <button type="submit" class="bg-sky-800 px-4 py-2 rounded-lg text-white font-bold">
+          Edite
+        </button>
+      </div>
+
+    </form>
   </div>
 
 
