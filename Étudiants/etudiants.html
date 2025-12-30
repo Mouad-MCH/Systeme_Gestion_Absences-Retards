@@ -25,70 +25,65 @@
 
   <div class="grid grid-rows-1 overflow-hidden">
     <!-- Start Sidebar -->
-    <div
-      class="max-sm:overflow-hidden z-10 sidebar bg-blue-950 text-white w-[250px] max-sm:w-[50px] h-screen md:pl-5 md:pb-10 flex flex-col justify-between fixed">
-      <div>
-        <div class="logo pt-2 mb-10">
-          <img src="" alt="">
-          <h1 class="font-black text-5xl">Enaa</h1>
+      <div class="sidebar fixed max-sm:overflow-hidden z-10 h-screen bg-blue-950 text-white w-[250px] max-sm:w-[50px] sm:w-[200px] md:p-5 p-2 flex flex-col justify-between shadow-[2px_0px_10px_#444]">
+        <div>
+          <div class="logo text-center mb-10 ">
+            <i class="fa-solid fa-bars"></i>
+            <h1 class="font-black text-2xl max-sm:hidden">Enaa</h1>
+          </div>
+  
+          <ul class="list flex flex-col sm:gap-y-3 gap-y-10">
+            <li>
+              <a href="#" class="max-sm:text-[0px] block p-1 rounded-lg hover:bg-sky-800 transition-all duration-300  border-transparent hover:border-blue-500 hover:pl-2">
+                <i class="fa-solid fa-house mr-2 text-base"></i>Tableux de bord
+              </a>
+            </li>
+
+            <li>
+              <a href="./Étudiants/etudiants.html" class="max-sm:text-[0px] block p-1 rounded-lg bg-sky-800 hover:bg-sky-800 transition-all duration-300  border-transparent hover:border-blue-500 hover:pl-2">
+                <i class="fa-solid fa-users mr-2 text-base"></i>Etudiants
+              </a>
+            </li>
+
+            <li>
+              <a href="../presence.html" class="max-sm:text-[0px] block p-1 rounded-lg transition-all duration-300  border-transparent hover:border-sky-500 hover:pl-2">
+                <i class="fa-solid fa-user mr-2 text-base"></i>Presence
+              </a>
+            </li>
+
+            <li>
+              <a href="../historique.html" class="max-sm:text-[0px] block p-1 rounded-lg hover:bg-sky-800 transition-all duration-300  border-transparent hover:border-blue-500 hover:pl-2">
+                <i class="fa-solid fa-clock-rotate-left mr-2 text-base"></i>Historique
+              </a>
+            </li>
+            
+          </ul>
         </div>
 
-        <ul class="list flex flex-col sm:gap-y-3 gap-y-10">
-          <li>
-            <a href="/Dashboard/dashboard.html"
-              class="max-sm:text-[0px] block p-2 rounded-l-lg bg-sky-800 transition-all duration-300  border-transparent hover:border-blue-500 hover:pl-2">
-              <i class="fa-solid fa-house mr-2 text-base"></i>Tableux de bord
-            </a>
-          </li>
+        <div onclick="out()" class="logeout text-red-500 cursor-pointer hover:text-red-400">
+          <i class="fa-solid fa-arrow-right-from-bracket "></i>
+          <h1 class="inline max-sm:hidden">Deconnexion</h1>
+        </div> 
 
-          <li>
-            <a href="#"
-              class="max-sm:text-[0px] block p-2 rounded-l-lg hover:bg-sky-800 transition-all duration-300  border-transparent hover:border-blue-500 hover:pl-2">
-              <i class="fa-solid fa-users mr-2 text-base"></i>Etudiants
-            </a>
-          </li>
-
-          <li>
-            <a href="../../presence.html"
-              class="max-sm:text-[0px] block p-2 rounded-l-lg hover:bg-sky-800 transition-all duration-300  border-transparent hover:border-sky-500 hover:pl-2">
-              <i class="fa-solid fa-user mr-2 text-base"></i>Presence
-            </a>
-          </li>
-
-          <li>
-            <a href="#"
-              class="max-sm:text-[0px] block p-2 rounded-l-lg hover:bg-sky-800 transition-all duration-300  border-transparent hover:border-blue-500 hover:pl-2">
-              <i class="fa-solid fa-clock-rotate-left mr-2 text-base"></i>Historique
-            </a>
-          </li>
-
-        </ul>
       </div>
-
-      <div class="logeout text-red-500 cursor-pointer hover:text-red-400">
-        <i class="fa-solid fa-arrow-right-from-bracket "></i>
-        <h1 class="inline max-sm:hidden">Deconnexion</h1>
-      </div>
-
-    </div>
 
     <!-- End Sidebar -->
 
     <!-- Start Content -->
 
-    <div class="">
+    <div class="content flex-1 ml-[250px] max-sm:ml-[50px] sm:ml-[200px] z-0">
       <!-- Start NaveBar -->
-      <div class="navbar min-w-full h-[50px] bg-blue-950 p-3 fixed">
-        <div class="profil h-full w-fit ml-auto flex items-center gap-2">
-          <img class="w-5 rounded-full" src="/public/avatar.avif" alt="">
-          <h1 class="font-bold text-white">Mouad</h1>
+        <div class="navbar z-10 fixed w-[calc(100%-250px)] max-sm:w-[calc(100%-50px)] sm:w-[calc(100%-200px)] h-[50px] bg-blue-950 p-3 px-5">
+          <div class="profil h-full w-fit ml-auto flex items-center gap-2">
+            <img class="w-5 rounded-full" src="/public/avatar.avif" alt="">
+            <h1 class="font-bold text-white">Mouad</h1>
+          </div>
         </div>
-      </div>
       <!-- End NaveBar -->
 
       <!-- Start Gestion des Étudiants -->
 
-      <div class="content_body ml-70 mt-25 mr-10 mb-10">
+      <div class="content_body mt-[50px] p-5 overflow-hidden h-full">
 
         <!-- Start Statistiques Étudiants -->
         <h1 class=" text-5xl font-bold">Gestion des Étudiants</h1>
@@ -210,6 +205,7 @@
 
 
   <script src="etudiants.js"></script>
+  <script src="../src/js/login.js"></script>
 </body>
 
 </html>
