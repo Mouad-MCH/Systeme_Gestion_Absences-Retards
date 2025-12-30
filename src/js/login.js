@@ -42,6 +42,11 @@ const pass = "1234"
 
 
 function out() {
+  if(window.location.pathname.includes("/etudiants.html") || window.location.pathname.includes("/dashboard.html")){ 
+    window.location.href = "../Login.html";
+    return
+  }
+  
   window.location.href = "Login.html"
 }
 
