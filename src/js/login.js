@@ -66,7 +66,7 @@ function run(e) {
     }
 
     localStorage.setItem("username", username.value);
-    window.location.href = "presence.html"
+    window.location.href = "/Étudiants/dashboard.html"
   })
 
 } 

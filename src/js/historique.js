@@ -218,7 +218,7 @@ function buildAttendanceData(presence = [], retard = []) {
         initials: initialsFromName(s.name),
         color: colorByStatus(s.status),
         groupe: s.groupe,
-        studentId: `#${String(s.id).padStart(3, "0")}`, // generated since not provided
+        studentId: `#${String(s.id).padStart(3, "0")}`,
       };
 
       if (s.status === "absent") {
