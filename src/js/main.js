@@ -4,7 +4,6 @@
  * - DOM Variables
 \* --------------------- */
 
-
 let search = document.getElementById("input_search")
 
 let retard_ditail = document.querySelector(".retard_ditail");
