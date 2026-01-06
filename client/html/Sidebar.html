@@ -1,0 +1,107 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Sidebar</title>
+    <link rel="stylesheet" href="/client/src/css/main.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.0.1/css/all.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+</head>
+<body class="grid grid-cols-[auto_1fr] min-h-dvh overflow-hidden bg-[oklch(98.4%_0.014_180.72)]">
+  
+
+  <!-- Start Sidebar -->
+
+  <div class="sidebar z-10 relative w-50 max-w-50 p-4 bg-primary text-white h-full 
+              shadow-[0_10px_10px_1px_#000]">
+    <!-- Start sidebar-top -->
+    
+    <div class="sidebar-header mb-10 flex items-center">
+
+      <a href="#" id="menu-toggle" class="font-extrabold">←</a>
+
+      <a href="#" class="text-3xl font-bold  m-auto">Enaa</a>
+    </div>
+
+    <!-- End sidebar-top -->
+
+    <!-- Start sidebar-bottom -->
+    <div class="w-full h-140 flex-dash">
+
+    <!-- Start navlinks -->
+      <nav class="nav-links flex flex-col gap-5">
+      <a href="#dashboard">
+        <i class="fas fa-tachometer-alt"></i>
+        Dashboard
+      </a>
+
+      <a href="#statistics">
+        <i class="fas fa-chart-bar"></i> Statistics
+      </a>
+    
+      <a href="#attendance">
+        <i class="fa-solid fa-calendar"></i> Attendance </a>
+
+      <a href="#settings">
+        <i class="fas fa-cog"></i> Settings
+      </a>
+
+      </nav>
+
+    <!-- End navlinks -->
+
+      <a href="#logout" class="logout text-danger hover:text-red-400 transition-all duration-300">
+        <i class="fas fa-sign-out-alt"></i> Logout
+      </a>
+    </div>
+
+    <!-- End sidebar-bottom -->
+    
+  </div>
+
+
+  <div class="main h-dvh">
+    <!-- Start Navbar -->
+    <div class="navbar flex-center px-6 text-white w-full h-12 bg-primary">
+
+      <div class="nav-left">
+        <a href="#">Dashboard ></a>
+        <a href="#">Personal Statistics</a>
+      </div>
+
+      <div class="nav-right flex-center gap-4">
+        <a href="#" class="notefication relative">
+          <i class="fa-solid fa-bell text-warning "></i>
+        </a>
+
+        <a href="#">
+          <img src="../../public/avatar.avif" alt="" class="w-6 rounded-full">
+        </a>
+      </div>
+
+    </div>
+
+    <!-- End Navbar -->
+
+    <!-- Start main Content -->
+    
+    <div class="content p-5 pt-10">
+      <div class="content-text">
+        <h1>Personal Statics</h1>
+        <p>Track your attendance and punctuality performance</p>
+      </div>
+    </div>
+
+  </div>
+
+<!-- link js -->
+
+  <script src="/client/src/js/statistics.js"></script>
+  <script type="module" src="/client/src/js/animation.js">
+  </script>
+</body>
+</html>
+
+

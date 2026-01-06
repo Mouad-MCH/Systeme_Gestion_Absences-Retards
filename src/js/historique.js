@@ -174,9 +174,9 @@ let retard = JSON.parse(localStorage.getItem("retard")) || [];
         //     }
         // ];
 
-        // ===============================
-// ✅ presence[] + retard[]  ==>  attendanceData[]
-// ===============================
+ 
+// presence[] + retard[]  ==>  attendanceData[]
+
 
 function initialsFromName(name = "") {
   const parts = name.trim().split(/\s+/).filter(Boolean);
