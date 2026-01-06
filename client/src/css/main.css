@@ -33,11 +33,21 @@ body {
     a {
       @apply hover:bg-accent-hover transition-all duration-300 rounded-lg px-2 py-1;
     }
+    .active  {
+      @apply bg-accent-hover;
+    }
+
+    .txt-hid {
+      @apply text-[0px] flex-c;
+
+      i {
+        @apply text-lg;
+      }
+    }
   }
 
-  .txt-hid {
-    @apply text-red-600;
-  }
+
+
 
   #menu-toggle {
     @apply text-center w-7.5 h-7.5 bg-white rounded-full border-2 border-border absolute -right-3.75 top-2 text-black;
@@ -54,6 +64,64 @@ body {
   p {
     @apply text-[16px] text-[#555];
   }
+
+  .statistic-box {
+    .item {
+      @apply box;
+      
+      .box-title {
+        @apply flex-center mb-5; 
+        
+        h4 {
+          @apply text-xl font-bold text-border opacity-60;
+        } 
+
+        .icone {
+          @apply w-[30px] h-[30px] flex-c rounded-sm;
+        }
+
+      }
+
+      span {
+        @apply font-bold text-gray-500;
+      }
+
+      &:nth-child(1) {
+        .icone {
+          @apply text-danger bg-red-300;
+        }
+        
+        span {
+          @apply bg-success-light text-success rounded-sm;
+        }
+
+      }
+
+        
+      &:nth-child(2) {
+        .icone {
+          @apply text-warning bg-warning-light;
+        }
+
+        span {
+          @apply bg-gray-400 text-gray-600 rounded-sm;
+        }
+
+      } 
+      &:nth-child(3) .icone {
+        @apply text-accent bg-accent-light;
+      }
+      &:nth-child(4) .icone {
+        @apply text-purple-500 bg-purple-300;
+      }
+
+    }
+  }
+
+  canvas {
+    @apply max-w-100 h-100;
+  }
+
 }
 
 
@@ -61,6 +129,26 @@ body {
   @apply flex items-center justify-between;
 }
 
+@utility flex-c {
+  @apply flex items-center justify-center;
+}
+
 @utility flex-dash {
   @apply flex flex-col justify-between;
+}
+
+@utility flex-box {
+  @apply flex items-center gap-5 flex-wrap;
+}
+
+@utility box {
+  @apply shadow-lg ring-slate-950/20 p-5 rounded-md grow cursor-pointer hover:shadow-none hover:ring-1  transition-all duration-300;
+}
+
+@utility txt-hid {
+  @apply text-[0px] flex-c;
+
+  i {
+    @apply text-lg;
+  }
 }

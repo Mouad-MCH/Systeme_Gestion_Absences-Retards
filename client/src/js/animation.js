@@ -37,6 +37,40 @@ tl.from(".content-text", {
 });
 
 
+// Statistics boxs
+
+const boxs = document.querySelectorAll('.statistic-box .item');
+const charts = document.querySelectorAll('.charts .box');
+
+function boxanim(boxs) {
+  return boxs.forEach(box => {
+    tl.fromTo(box, {
+      y: 100,
+      opacity: 0,
+    },
+    {
+      y: 0,
+      opacity: 1,
+      stagger: {
+        amound: 1,
+        ease: "power1.inOut",
+      },
+    }
+    )
+  })
+}
+
+boxanim(boxs);
+boxanim(charts);
+
+charts.forEach(chart => {
+  const child = chart.querySelector("canvas");
+  tl.from(child, {
+    scale: 0,
+  })
+})
+
+
 // const turn = () => {
 //   gsap.to("#menu-toggle", {
 //     rotation: 360,
